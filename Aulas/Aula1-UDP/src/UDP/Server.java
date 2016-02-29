@@ -3,12 +3,8 @@ package UDP;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+
 
 public class Server {
 	HashMap<String,String> database = new HashMap<String,String>();
@@ -44,9 +40,50 @@ public class Server {
 		//socket.close();
 	}
 
-	public String findPlate(int plate_number){
-		/*database.put("matricula", "Dono");*/
-		/* Display content using Iterator*/
+	public String findPlate(String plate_number){
+		String res = database.get(plate_number);
+		System.out.println("pessoa: "+res);
+		if(res == null)
+			return  "NOT_FOUND";
+		else 
+			return res;
+	}
+	
+	public Boolean addLicentPlate(String ownerName,String plateNumber){
+		if(database.get(plateNumber) != null)
+			return false;
+		database.put(plateNumber, ownerName);
+		return true;
+	}
+
+	public int getNumPlates() {
+		return database.size();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 		Set set = database.entrySet();
 		Iterator iterator = set.iterator();
 		
@@ -57,9 +94,5 @@ public class Server {
 			System.out.println(mentry.getValue());
 		}
 		return null;
-
-	}
-}
-
-
+ */
 
