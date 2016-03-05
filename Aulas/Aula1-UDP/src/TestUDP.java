@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -34,7 +36,7 @@ public class TestUDP {
 		assertEquals("Diferente numero de matriculas",3,s.getNumPlates());
 		
 		String mt = s.findPlate("33-DX-95");
-		System.out.println(mt);
+		//System.out.println(mt);
 		assertEquals("dono","Daniel Reis",mt);
 	}
 	
@@ -48,8 +50,17 @@ public class TestUDP {
 		String test1 = database.get("none");
 	//	System.out.println("resultado1: "+test);
 	//	System.out.println("resultado2: "+test1);
-		
-		
+	}
+	
+	@Test
+	public void TESTregular(){
+		Pattern p = Pattern.compile("[0-9]{2}-[A-Z]{2}-[0-9]{2}");
+		Matcher m = p.matcher("11-AX-88");
+		boolean b = m.matches();
+		if(b)
+			System.out.println("coincide!");
+		else
+			System.out.println("Não coincide!");
 	}
 
 }
