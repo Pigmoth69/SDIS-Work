@@ -35,21 +35,22 @@ public class Server {
 			System.out.println("SERVER: Receiving..");
 			socket.receive(packet);
 			
-			String received = new String(packet.getData());
+			String received = new String(packet.getData(), 0, packet.getLength());
 			System.out.println("RECEBIDO: "+ received);
 			
 			//fazer o parse da resposta
-			/*splitedstring = received.split(" ");
+			splitedstring = received.split(" ");
 			String operation = splitedstring[0];
 			String res = null;
 			switch(operation){
 				case "REGISTER":
 					if(checkLicence(splitedstring[1])){
-						String[] nome = splitedstring[2].split("[^_a-zA-Z0-9]");
-						boolean status = addLicentPlate(splitedstring[1],nome[0]);
+						boolean status = addLicentPlate(splitedstring[2],splitedstring[1]);
 						if(status)
 							res = ""+database.size();
-					}	
+						else
+							res = "Invalid";
+					}
 					else{
 						System.out.println("Invalid licence plate");
 						res = "Invalid license plate";
@@ -59,6 +60,7 @@ public class Server {
 				case "LOOKUP":
 					if(checkLicence(splitedstring[1])){
 						res = findPlate(splitedstring[1]);
+						
 					}else{
 						System.out.println("Invalid licence plate");
 						res = "Invalid license plate";
@@ -67,14 +69,12 @@ public class Server {
 				default:
 			}
 			
-			System.out.println("Sending: "+res);*/
-			
+			System.out.println("Sending: "+res);
+			System.out.println(database);
 			
 			//envia
-			System.out.println("Vou enviar agora para o cliente");
-	        String c = "DanielSilvaReis";
-			byte[] sbuf = c.getBytes();
-			socket.send( new DatagramPacket(sbuf, sbuf.length));
+			byte[] sbuf = res.getBytes();
+			socket.send( new DatagramPacket(sbuf, sbuf.length,packet.getAddress(),packet.getPort()));
 			socket.close();
 			
 		}
@@ -102,9 +102,14 @@ public class Server {
 	}
 	
 	public static boolean checkLicence(String license){
+		System.out.println("Licenca: -"+license+"|");
+		System.out.println(database);
 		Pattern p = Pattern.compile("[0-9]{2}-[A-Z]{2}-[0-9]{2}");
 		Matcher m = p.matcher(license);
 		boolean b = m.matches();
+		System.out.println(p);
+		System.out.println(m);
+		System.out.println(b);
 		return b;
 	}
 

@@ -28,7 +28,7 @@ public class Client {
 		
 		int portNumber = Integer.parseInt(args[1]);
 		InetAddress address = InetAddress.getByName(args[0]);
-		socket = new DatagramSocket(portNumber,address);
+		socket = new DatagramSocket();
 
 		//prepara o envio da mensagem
 		String request;
