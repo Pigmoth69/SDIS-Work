@@ -1,0 +1,10 @@
+
+public class header {
+
+	String MessageType;
+	String Version;
+	String SenderId;
+	String FileId;
+	String ChunckNo;
+	String ReplicationDeg;
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1457538026544_1" label="SkeetPro" name="SkeetPro">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/SkeetPro" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1457538661427_2" label="CEnass" name="CEnass"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1457534842466_0" label="Window Working Set" name="Aggregate for window 1457534842466"/>
+</workingSetManager>

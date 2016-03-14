@@ -1,0 +1,6 @@
+
+public class message {
+	
+	Header h = new header();
+	
+}
