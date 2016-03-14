@@ -1,2 +1,0 @@
-# SDIS
-Repositório de SDIS
