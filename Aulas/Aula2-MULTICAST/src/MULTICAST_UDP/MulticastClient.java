@@ -4,7 +4,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
-
+//pequeno teste
 public class MulticastClient {
     
     static String INET_ADDR = "224.0.0.3";
