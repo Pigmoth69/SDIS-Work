@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Aulas/Aula2-MULTICAST/src"/>
+	<classpathentry kind="src" path="SDIS-project/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="SDIS-project/bin"/>
+</classpath>
