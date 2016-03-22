@@ -3,9 +3,13 @@ package main;
 import java.io.IOException;
 
 public class Peer {
-	private Connection MC, MDB, MDR;
-	private Threads MCThread, MDBThread, MDRThread;
-	private String MCaddr, MDBaddr, MDRaddr;
+	private static Connection MC;
+	private static Connection MDB;
+	private static Connection MDR;
+	private static Threads MCThread, MDBThread, MDRThread;
+	private static String MCaddr;
+	private static String MDBaddr;
+	private static String MDRaddr;
 	public Connection getMC() {
 		return MC;
 	}
@@ -30,9 +34,11 @@ public class Peer {
 		return MDRThread;
 	}
 
-	private int MCport, MDBport, MDRport;
+	private static int MCport;
+	private static int MDBport;
+	private static int MDRport;
 	
-	public void main(String args[]){
+	public static void main(String args[]){
 		if (args.length != 7){
 			System.out.println("Invalid number of arguments in ip file");
 			return;
@@ -58,6 +64,10 @@ public class Peer {
 		MCThread = new Threads("MC");
 		MDBThread = new Threads("MDB");
 		MDRThread = new Threads("MDR");
+		
+		MCThread.start();
+		MDBThread.start();
+		MDRThread.start();
 		
 	}
 }
