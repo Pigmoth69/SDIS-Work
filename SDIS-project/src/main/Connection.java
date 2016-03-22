@@ -22,22 +22,26 @@ public class Connection {
 		recSocket = new MulticastSocket(mcast_port);
 		sendSocket = new DatagramSocket();	
 		
+		recSocket.setTimeToLive(1);
 		recSocket.joinGroup(mAddr);
 		System.out.println("connected");
 	}
 
 	public void send(String msg) throws IOException{
 		DatagramPacket msgPacket = new DatagramPacket(msg.getBytes(),msg.length(), mAddr, mcast_port);
-		recSocket.send(msgPacket); 
+		sendSocket.send(msgPacket); 
 	
         System.out.println("Server sent packet with msg: " + msg);
 	}
 	
 	public String receive() throws IOException{
 		byte[] buf = new byte[1024];
+		System.out.println("abc");
 		
 		DatagramPacket msgPacket = new DatagramPacket(buf, buf.length);
-		sendSocket.receive(msgPacket);
+		System.out.println("abc2");
+		recSocket.receive(msgPacket);
+		System.out.println("abc3");
 
         String msg = new String(buf, 0, buf.length);
         System.out.println("Socket 1 received msg: " + msg);

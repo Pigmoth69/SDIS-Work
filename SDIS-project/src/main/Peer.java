@@ -10,6 +10,7 @@ public class Peer {
 	private static String MCaddr;
 	private static String MDBaddr;
 	private static String MDRaddr;
+	
 	public Connection getMC() {
 		return MC;
 	}
@@ -38,7 +39,7 @@ public class Peer {
 	private static int MDBport;
 	private static int MDRport;
 	
-	public static void main(String args[]){
+	public Peer(String args[]){
 		if (args.length != 7){
 			System.out.println("Invalid number of arguments in ip file");
 			return;
@@ -61,13 +62,13 @@ public class Peer {
 			e.printStackTrace();
 		}
 		
-		MCThread = new Threads("MC");
-		MDBThread = new Threads("MDB");
-		MDRThread = new Threads("MDR");
+		MCThread = new Threads(this, "MC");
+		MDBThread = new Threads(this, "MDB");
+		MDRThread = new Threads(this, "MDR");
 		
-		MCThread.start();
-		MDBThread.start();
-		MDRThread.start();
+		//MCThread.start();
+		//MDBThread.start();
+		//MDRThread.start();
 		
 	}
 }
