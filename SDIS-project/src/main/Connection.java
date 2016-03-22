@@ -28,7 +28,7 @@ public class Connection {
 	}
 
 	public void send(String msg) throws IOException{
-		DatagramPacket msgPacket = new DatagramPacket(msg.getBytes(),msg.length(), mAddr, mcast_port);
+		DatagramPacket msgPacket = new DatagramPacket(msg.getBytes(),msg.getBytes().length, mAddr, mcast_port);
 		sendSocket.send(msgPacket); 
 	
         System.out.println("Server sent packet with msg: " + msg);
@@ -38,12 +38,12 @@ public class Connection {
 		byte[] buf = new byte[1024];
 		System.out.println("abc");
 		
-		DatagramPacket msgPacket = new DatagramPacket(buf, buf.length);
+		DatagramPacket msgPacket = new DatagramPacket(buf, 0,buf.length);
 		System.out.println("abc2");
 		recSocket.receive(msgPacket);
 		System.out.println("abc3");
 
-        String msg = new String(buf, 0, buf.length);
+        String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
         System.out.println("Socket 1 received msg: " + msg);
         
         return msg;
