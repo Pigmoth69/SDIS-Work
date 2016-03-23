@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,11 +15,11 @@ import javax.xml.bind.DatatypeConverter;
 public class Client {
 	
 	static Peer peer;
-	static Threads MC;
+	static ChannelThreads MC;
 	static Connection con;
-	static String param[] = {"224.0.0.0", "4555", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
+	static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
 	
-	public static void main(String[] args) throws NumberFormatException, IOException, NoSuchAlgorithmException {
+	public static void main(String[] args) throws NumberFormatException, IOException, NoSuchAlgorithmException, InterruptedException {
 		if(!checkArgsNum(args))//checks if there is a invalid number of arguments
 			return;
 		
@@ -79,10 +80,11 @@ public class Client {
 		MC.start();
 		con = peer.getMC();
 	}
-	private static void startBackup(int peer_access_point, String sub_protocol, String filename, int replication) throws IOException, NoSuchAlgorithmException {
+	private static void startBackup(int peer_access_point, String sub_protocol, String filename, int replication) throws IOException, NoSuchAlgorithmException, InterruptedException {
 		File file = new File(filename);
 		double size = file.length()/64000;
 		size = Math.ceil(size);
+		System.out.println("Chunks Number: "+size);
 		FileInputStream readFile = new FileInputStream(file);
 		
 		int chunkNO = 1;
@@ -105,8 +107,10 @@ public class Client {
 			String send = new String("PUTCHUNK 1.0 "+peer_access_point+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n "+data);
 			con.send(send);
 			chunkNO++;
+			TimeUnit.MILLISECONDS.sleep(50);
 		}
-		System.out.println("Ending Sending chunks!");
+		System.out.println("Ending Sending chunks! \n \n");
+		System.out.println(chunkNO);
 		
 		
 		

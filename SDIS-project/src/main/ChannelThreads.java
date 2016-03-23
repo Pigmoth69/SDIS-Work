@@ -56,7 +56,7 @@ public class ChannelThreads extends Thread{
 			System.out.println("Thread " +  threadName + " exiting.");
 			
 			if (!str.equals("Nothing received")){
-				System.out.println("Message received successfuly: " + str);
+				//System.out.println("Message received successfuly: " + str);
 			}
 			else{
 				System.out.println("Error receiving!");
