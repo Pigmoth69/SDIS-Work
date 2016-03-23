@@ -30,15 +30,17 @@ public class Threads extends Thread{
 	
 	
 	public void run() {
-		String msg = "Nothing received";
+		String str = "Nothing received";
 		
 		System.out.println("Running " +  threadName );
 		while(true){
 			try {
 				System.out.println("Vou tentar receber coisas...");
-				msg = connection.receive();
+				str = connection.receive();
 				System.out.println("Recebi!");
-				/*Object c = Message.parseMessage(msg.getBytes());
+				Message msg = Message.parseMessage(str.getBytes());
+				System.out.println("aceder aos valores de msg: " + msg.getChunkNo());
+				/*
 				PutChunkMessage b = (PutChunkMessage)c;
 				System.out.println("ChunkNO: "+b.getChunkNO());*/
 				
@@ -52,8 +54,8 @@ public class Threads extends Thread{
 			
 			System.out.println("Thread " +  threadName + " exiting.");
 			
-			if (!msg.equals("Nothing received")){
-				System.out.println("Message received successfuly: " + msg);
+			if (!str.equals("Nothing received")){
+				System.out.println("Message received successfuly: " + str);
 			}
 			else{
 				System.out.println("Error receiving!");

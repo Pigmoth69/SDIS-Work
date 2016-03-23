@@ -11,6 +11,8 @@ public class Message {
 	
 	public static final String CRLF = "\r\n";
 	
+	private static String type;
+	
 	public static Message parseMessage(byte[] data){
 		String dataString = new String(data);
 		String[] dataArgs = dataString.split(CRLF + CRLF); //separates the message into header [0] and body [1]
@@ -53,10 +55,10 @@ public class Message {
 
 
 	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {
+		System.out.println("PUTCHUNK");
+		
 		if(header.length != 6)
 			return null;
-		
-		System.out.println("PUTCHUNK");
 		
 		String[] versionValues = header[1].split("\\.");
 		
@@ -70,6 +72,9 @@ public class Message {
 		
 		int replicationDeg = Integer.parseInt(header[5]);
 		
+		/*System.out.println("Version: " + messageVersion.toString() + "; SenderId: " + senderId.getId() + "; fileId: " + fileId[0]
+				+ "; chunckNo: " + chunkNo + "; replicationDeg: " + replicationDeg);
+		*/
 		return new PutChunkMessage(messageVersion, senderId, fileId, chunkNo, replicationDeg, body.getBytes());
 	}
 	
@@ -161,5 +166,5 @@ public class Message {
 		
 		return new RemovedMessage(messageVersion, senderId, fileId, chunkNo);
 	}
-	
+
 }

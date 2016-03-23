@@ -8,5 +8,12 @@ public class Version {
 		Byte1 = parseByte;
 		Byte2 = parseByte2;
 	}
+	
+	@Override
+	public String toString(){
+		String res = "" + Byte1 + "." + Byte2;
+		return res;
+	}
+	
 
 }
