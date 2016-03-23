@@ -2,6 +2,8 @@ package main;
 
 import java.io.IOException;
 
+import Protocol.Message;
+
 public class Threads extends Thread{
 	private Thread t;
 	private String threadName;
@@ -30,23 +32,26 @@ public class Threads extends Thread{
 		String msg = "Nothing received";
 		
 		System.out.println("Running " +  threadName );
-		try {
-			msg = connection.receive();
-				
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			System.out.println("Thread " +  threadName + " interrupted.");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("Thread " +  threadName + " exiting.");
-		
-		if (!msg.equals("Nothing received")){
-			System.out.println("Message received successfuly: " + msg);
-		}
-		else{
-			System.out.println("Error receiving!");
+		while(true){
+			try {
+				msg = connection.receive();
+				Message.parseMessage(msg.getBytes());
+					
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				System.out.println("Thread " +  threadName + " interrupted.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Thread " +  threadName + " exiting.");
+			
+			if (!msg.equals("Nothing received")){
+				System.out.println("Message received successfuly: " + msg);
+			}
+			else{
+				System.out.println("Error receiving!");
+			}
 		}
 	}
    

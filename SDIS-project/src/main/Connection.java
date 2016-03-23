@@ -36,15 +36,11 @@ public class Connection {
 	
 	public String receive() throws IOException{
 		byte[] buf = new byte[1024];
-		System.out.println("abc");
 		
 		DatagramPacket msgPacket = new DatagramPacket(buf, 0,buf.length);
-		System.out.println("abc2");
 		recSocket.receive(msgPacket);
-		System.out.println("abc3");
 
         String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
-        System.out.println("Socket 1 received msg: " + msg);
         
         return msg;
 	}

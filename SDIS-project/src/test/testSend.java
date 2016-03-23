@@ -15,7 +15,17 @@ public class testSend {
 		MC.start();
 		Connection con = peer1.getMC();
 		try {
-			con.send("string de teste, será que funca?");
+			con.send("PUTCHUNK 1.0 1 b2 0 5 \r\n\r\n abcbdbasdbasdawd");
+			System.out.println("stored");
+			con.send("STORED 1.0 1 b2 0 \r\n\r\n");
+			System.out.println("getchunk");
+			con.send("GETCHUNK 1.0 1 b2 0 \r\n\r\n");
+			System.out.println("chunk");
+			con.send("CHUNK 1.0 1 b2 0 \r\n\r\n abcbdbasdbasdawd");
+			System.out.println("deleted");
+			con.send("DELETE 1.0 1 b2 \r\n\r\n");
+			System.out.println("removed");
+			con.send("REMOVED 1.0 1 b2 2 \r\n\r\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
