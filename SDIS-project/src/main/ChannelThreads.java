@@ -5,13 +5,13 @@ import java.io.IOException;
 import Protocol.Message;
 import Protocol.PutChunkMessage;
 
-public class Threads extends Thread{
+public class ChannelThreads extends Thread{
 	private Thread t;
 	private String threadName;
 	private Peer peer;
 	private Connection connection;
    
-	Threads(Peer peer, String name){
+	ChannelThreads(Peer peer, String name){
 		this.peer = peer;
 		threadName = name;
 		System.out.println("Creating " +  threadName );
@@ -39,7 +39,8 @@ public class Threads extends Thread{
 				str = connection.receive();
 				System.out.println("Recebi!");
 				Message msg = Message.parseMessage(str.getBytes());
-				System.out.println("aceder aos valores de msg: " + msg.getType());
+				messageHandling msgRec = new messageHandling(msg, msg.getType());
+				msgRec.start();
 				/*
 				PutChunkMessage b = (PutChunkMessage)c;
 				System.out.println("ChunkNO: "+b.getChunkNO());*/

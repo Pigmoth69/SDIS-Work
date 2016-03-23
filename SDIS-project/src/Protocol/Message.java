@@ -38,8 +38,6 @@ public class Message {
 		
 	}
 
-
-
 	private static Message getMessageType(String[] header, String body) {
 		switch(header[0]){
 			case "PUTCHUNK":
@@ -60,11 +58,7 @@ public class Message {
 		return null;
 	}
 	
-
-
-	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {
-		System.out.println("PUTCHUNK");
-		
+	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {		
 		if(header.length != 6)
 			return null;
 		
@@ -86,12 +80,10 @@ public class Message {
 		return new PutChunkMessage(messageVersion, senderId, fileId, chunkNo, replicationDeg, body.getBytes());
 	}
 	
-	
 	private static StoredMessage parseSTORED(String[] header) {
 		if(header.length != 5)
 			return null;
 		
-		System.out.println("STORED");
 		
 		String[] versionValues = header[1].split("\\.");
 		Version messageVersion = new Version(Byte.parseByte(versionValues[0]), Byte.parseByte(versionValues[1]));
@@ -104,12 +96,10 @@ public class Message {
 		return new StoredMessage(messageVersion, senderId, fileId, chunkNo);
 	}
 	
-
 	private static GetChunkMessage parseGETCHUNK(String[] header) {
 		if(header.length != 5)
 			return null;
 		
-		System.out.println("GETCHUNK");
 		
 		String[] versionValues = header[1].split("\\.");
 		Version messageVersion = new Version(Byte.parseByte(versionValues[0]), Byte.parseByte(versionValues[1]));
@@ -126,7 +116,6 @@ public class Message {
 		if(header.length != 5)
 			return null;
 		
-		System.out.println("CHUNK");
 		
 		String[] versionValues = header[1].split("\\.");
 		Version messageVersion = new Version(Byte.parseByte(versionValues[0]), Byte.parseByte(versionValues[1]));
@@ -144,7 +133,6 @@ public class Message {
 		if(header.length != 4)
 			return null;
 		
-		System.out.println("DELETE");
 		
 		String[] versionValues = header[1].split("\\.");
 		Version messageVersion = new Version(Byte.parseByte(versionValues[0]), Byte.parseByte(versionValues[1]));
@@ -157,8 +145,6 @@ public class Message {
 	}
 
 	private static RemovedMessage parseREMOVED(String[] header) {
-		System.out.println("REMOVED");
-		
 		if(header.length != 4)
 			return null;
 		

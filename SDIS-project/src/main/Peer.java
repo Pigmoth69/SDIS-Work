@@ -6,7 +6,7 @@ public class Peer {
 	private static Connection MC;
 	private static Connection MDB;
 	private static Connection MDR;
-	private static Threads MCThread, MDBThread, MDRThread;
+	private static ChannelThreads MCThread, MDBThread, MDRThread;
 	private static String MCaddr;
 	private static String MDBaddr;
 	private static String MDRaddr;
@@ -23,15 +23,15 @@ public class Peer {
 		return MDR;
 	}
 
-	public Threads getMCThread() {
+	public ChannelThreads getMCThread() {
 		return MCThread;
 	}
 
-	public Threads getMDBThread() {
+	public ChannelThreads getMDBThread() {
 		return MDBThread;
 	}
 
-	public Threads getMDRThread() {
+	public ChannelThreads getMDRThread() {
 		return MDRThread;
 	}
 
@@ -64,9 +64,9 @@ public class Peer {
 			e.printStackTrace();
 		}
 		System.out.println("Iniciei as threads do PEER!!");
-		MCThread = new Threads(this, "MC");
-		MDBThread = new Threads(this, "MDB");
-		MDRThread = new Threads(this, "MDR");
+		MCThread = new ChannelThreads(this, "MC");
+		MDBThread = new ChannelThreads(this, "MDB");
+		MDRThread = new ChannelThreads(this, "MDR");
 		System.out.println("Threads do PEER já iniciadas!!");
 		
 		//MCThread.start();
