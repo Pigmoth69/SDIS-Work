@@ -38,9 +38,9 @@ public class Threads extends Thread{
 				System.out.println("Vou tentar receber coisas...");
 				msg = connection.receive();
 				System.out.println("Recebi!");
-				Object c = Message.parseMessage(msg.getBytes());
+				/*Object c = Message.parseMessage(msg.getBytes());
 				PutChunkMessage b = (PutChunkMessage)c;
-				System.out.println("ChunkNO: "+b.getChunkNO());
+				System.out.println("ChunkNO: "+b.getChunkNO());*/
 				
 					
 				Thread.sleep(50);
