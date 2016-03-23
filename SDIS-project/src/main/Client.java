@@ -14,7 +14,7 @@ import javax.xml.bind.DatatypeConverter;
 public class Client {
 	
 	static Peer peer;
-	static Threads MC;
+	static ChannelThreads MC;
 	static Connection con;
 	static String param[] = {"224.0.0.0", "4555", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
 	

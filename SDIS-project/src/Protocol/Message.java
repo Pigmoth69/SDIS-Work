@@ -32,6 +32,7 @@ public class Message {
 		if(dataArgs.length > 1)
 			body = dataArgs[1];
 		
+		//System.out.println("body size: " + body.length());
 		//returns the message in case of success or null in case of error
 		return getMessageType(header, body);		
 		

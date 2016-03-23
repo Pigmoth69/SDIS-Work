@@ -37,6 +37,7 @@ public class ChannelThreads extends Thread{
 			try {
 				System.out.println("Vou tentar receber coisas...");
 				str = connection.receive();
+				System.out.println("strSize: " + str.length());
 				System.out.println("Recebi!");
 				Message msg = Message.parseMessage(str.getBytes());
 				messageHandling msgRec = new messageHandling(msg, msg.getType());
@@ -46,9 +47,9 @@ public class ChannelThreads extends Thread{
 				System.out.println("ChunkNO: "+b.getChunkNO());*/
 				
 					
-				Thread.sleep(50);
+				/*Thread.sleep(50);
 			} catch (InterruptedException e) {
-				System.out.println("Thread " +  threadName + " interrupted.");
+				System.out.println("Thread " +  threadName + " interrupted.");*/
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -56,7 +57,7 @@ public class ChannelThreads extends Thread{
 			System.out.println("Thread " +  threadName + " exiting.");
 			
 			if (!str.equals("Nothing received")){
-				System.out.println("Message received successfuly: " + str);
+				//System.out.println("Message received successfuly: " + str);
 			}
 			else{
 				System.out.println("Error receiving!");
