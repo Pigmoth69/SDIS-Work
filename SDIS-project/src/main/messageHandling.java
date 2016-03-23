@@ -1,21 +1,27 @@
 package main;
 
+import java.io.IOException;
+
 import Protocol.ChunkMessage;
 import Protocol.DeleteMessage;
 import Protocol.GetChunkMessage;
 import Protocol.Message;
 import Protocol.PutChunkMessage;
 import Protocol.RemovedMessage;
+import Protocol.SenderId;
 import Protocol.StoredMessage;
+import Protocol.Version;
 
 public class messageHandling extends Thread{
 	private Thread t;
 	Message msg;
 	private String threadName;
+	private Peer peer;
 	
-	messageHandling(Message msg, String name){
+	messageHandling(Peer peer, Message msg, String name){
 		this.msg = msg;
 		this.threadName = name;
+		this.peer = peer;
 		
 	}
 	
@@ -58,7 +64,15 @@ public class messageHandling extends Thread{
 	private void handPUTCHUNK(){
 		PutChunkMessage put = (PutChunkMessage)msg;
 		put.doIt();
-	}
+		StoredMessage sto = new StoredMessage(put.getMessageVersion(), put.getSenderId(),put.getFileId(), put.getChunkNo());
+		Connection con = peer.getMC();
+		try {
+			Thread.sleep(50);
+			con.send(sto.toString());
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}  
 	
 	private void handSTORED(){
 		StoredMessage sto = (StoredMessage)msg;		

@@ -40,7 +40,7 @@ public class ChannelThreads extends Thread{
 				System.out.println("strSize: " + str.length());
 				System.out.println("Recebi!");
 				Message msg = Message.parseMessage(str.getBytes());
-				messageHandling msgRec = new messageHandling(msg, msg.getType());
+				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
 				msgRec.start();
 				/*
 				PutChunkMessage b = (PutChunkMessage)c;
