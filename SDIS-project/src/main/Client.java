@@ -1,22 +1,33 @@
 package main;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Interface {
+import javax.xml.bind.DatatypeConverter;
 
-	public static void main(String[] args) {
+public class Client {
+	
+	static Peer peer;
+	static Threads MC;
+	static Connection con;
+	static String param[] = {"224.0.0.0", "4555", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
+	
+	public static void main(String[] args) throws NumberFormatException, IOException, NoSuchAlgorithmException {
 		if(!checkArgsNum(args))//checks if there is a invalid number of arguments
 			return;
 		
 		int peer_access_point;
 		String sub_protocol;
-		String filename;
-		int replication;
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(args[0]);
 		boolean b = m.matches();
+		
 		if(!b){
 			System.out.println("Invalid <peer_ap>!");
 			return;
@@ -27,8 +38,9 @@ public class Interface {
 		switch(sub_protocol){
 			case "BACKUP":
 				if(checkBackup(args[2],args[3]) && args.length == 4){
-					System.out.println("OK");
-					handleSubProtocol(peer_access_point,sub_protocol,args[2],Integer.parseInt(args[3]));
+					System.out.println("OK- starting peer..");
+					startPeer();
+					startBackup(peer_access_point,sub_protocol,args[2],Integer.parseInt(args[3]));
 				}
 				else
 					System.out.println("Invalid <sub_protocol>");
@@ -36,7 +48,7 @@ public class Interface {
 			case "RESTORE":
 				if(checkRestore(args[2]) && args.length == 3){
 					System.out.println("OK");
-					handleSubProtocol(peer_access_point,sub_protocol,args[2]);
+					//handleSubProtocol(peer_access_point,sub_protocol,args[2]);
 				}	
 				else
 					System.out.println("Invalid <sub_protocol>");
@@ -44,7 +56,7 @@ public class Interface {
 			case "DELETE":
 				if(checkDelete(args[2])&& args.length == 3){
 					System.out.println("OK");
-					handleSubProtocol(peer_access_point,sub_protocol,args[2]);
+					//handleSubProtocol(peer_access_point,sub_protocol,args[2]);
 				}
 				else
 					System.out.println("Invalid <sub_protocol>");
@@ -61,12 +73,58 @@ public class Interface {
 		}
 			
 	}
-	
+	private static void startPeer(){
+		peer = new Peer(param);
+		MC = peer.getMCThread();
+		MC.start();
+		con = peer.getMC();
+	}
+	private static void startBackup(int peer_access_point, String sub_protocol, String filename, int replication) throws IOException, NoSuchAlgorithmException {
+		File file = new File(filename);
+		double size = file.length()/64000;
+		size = Math.ceil(size);
+		FileInputStream readFile = new FileInputStream(file);
+		
+		int chunkNO = 1;
+		byte[] tempData;
+		String hash = filename+sub_protocol+peer_access_point+replication;
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        String fileId = DatatypeConverter.printHexBinary(digest);
+        
+		while(readFile.available() > 0){
+			if(readFile.available()>= 64000)
+				 tempData = new byte[64000];
+			else
+				tempData = new byte[readFile.available()];
+			
+			readFile.read(tempData);
+			String data = new String(tempData);
+			
+			String send = new String("PUTCHUNK 1.0 "+peer_access_point+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n "+data);
+			con.send(send);
+			chunkNO++;
+		}
+		System.out.println("Ending Sending chunks!");
+		
+		
+		
+	}
+
 	public static void handleSubProtocol(int peer_access_point,String sub_protocol, String filename,int replication){
 		//TODO fazer o handler
+		System.out.println("peer_access_point: "+ peer_access_point);
+		System.out.println("sub_protocol: "+ sub_protocol);
+		System.out.println("filename: "+ filename);
+		System.out.println("replication: "+ replication);
+		
 	}
 	public static void handleSubProtocol(int peer_access_point,String sub_protocol, String filename){
 		//TODO fazer o handler
+		System.out.println("peer_access_point: "+ peer_access_point);
+		System.out.println("sub_protocol: "+ sub_protocol);
+		System.out.println("filename: "+ filename);
 	}
 	
 	private static boolean checkReclaim() {
