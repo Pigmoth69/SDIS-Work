@@ -53,18 +53,21 @@ public class Peer {
 		
 		
 		try{
+			System.out.println("Iniciei as connections!!");
 			MC = new Connection(MCaddr, MCport);
 			MDB = new Connection(MDBaddr, MDBport);
 			MDR = new Connection(MDRaddr, MDRport);
+			System.out.println("Connections já iniciadas!!");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("Iniciei as threads do PEER!!");
 		MCThread = new Threads(this, "MC");
 		MDBThread = new Threads(this, "MDB");
 		MDRThread = new Threads(this, "MDR");
+		System.out.println("Threads do PEER já iniciadas!!");
 		
 		//MCThread.start();
 		//MDBThread.start();

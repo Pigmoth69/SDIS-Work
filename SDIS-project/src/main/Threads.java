@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 
 import Protocol.Message;
+import Protocol.PutChunkMessage;
 
 public class Threads extends Thread{
 	private Thread t;
@@ -34,16 +35,21 @@ public class Threads extends Thread{
 		System.out.println("Running " +  threadName );
 		while(true){
 			try {
+				System.out.println("Vou tentar receber coisas...");
 				msg = connection.receive();
-				Message.parseMessage(msg.getBytes());
+				System.out.println("Recebi!");
+				Object c = Message.parseMessage(msg.getBytes());
+				PutChunkMessage b = (PutChunkMessage)c;
+				System.out.println("ChunkNO: "+b.getChunkNO());
+				
 					
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				System.out.println("Thread " +  threadName + " interrupted.");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			System.out.println("Thread " +  threadName + " exiting.");
 			
 			if (!msg.equals("Nothing received")){

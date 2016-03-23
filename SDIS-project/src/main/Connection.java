@@ -24,13 +24,12 @@ public class Connection {
 		
 		recSocket.setTimeToLive(1);
 		recSocket.joinGroup(mAddr);
-		System.out.println("connected");
+		System.out.println("connected: "+mcast_addr + " port: "+mcast_port);
 	}
 
 	public void send(String msg) throws IOException{
 		DatagramPacket msgPacket = new DatagramPacket(msg.getBytes(),msg.getBytes().length, mAddr, mcast_port);
 		sendSocket.send(msgPacket); 
-	
         System.out.println("Server sent packet with msg: " + msg);
 	}
 	
@@ -39,9 +38,7 @@ public class Connection {
 		
 		DatagramPacket msgPacket = new DatagramPacket(buf, 0,buf.length);
 		recSocket.receive(msgPacket);
-
         String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
-        
         return msg;
 	}
 }

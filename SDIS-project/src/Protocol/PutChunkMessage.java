@@ -17,5 +17,8 @@ public class PutChunkMessage extends Message{
 		this.replicationDeg = replicationDeg;
 		this.bytes = bytes;
 	}
+	public int getChunkNO(){
+		return chunkNo;
+	}
 
 }
