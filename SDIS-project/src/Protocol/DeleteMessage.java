@@ -10,6 +10,7 @@ public class DeleteMessage  extends Message{
 		this.messageVersion = messageVersion;
 		this.senderId = senderId;
 		this.fileId = fileId;
+		this.setType("DELETE");
 	}
 
 }

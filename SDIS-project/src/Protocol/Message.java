@@ -11,8 +11,16 @@ public class Message {
 	
 	public static final String CRLF = "\r\n";
 	
-	private static String type;
+	private String type;
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public static Message parseMessage(byte[] data){
 		String dataString = new String(data);
 		String[] dataArgs = dataString.split(CRLF + CRLF); //separates the message into header [0] and body [1]

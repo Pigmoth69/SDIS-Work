@@ -12,6 +12,7 @@ public class StoredMessage  extends Message{
 		this.senderId = senderId;
 		this.fileId = fileId;
 		this.chunkNo = chunkNo;
+		this.setType("STORED");
 	}
 
 }

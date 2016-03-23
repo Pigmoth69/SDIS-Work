@@ -14,6 +14,7 @@ public class ChunkMessage extends Message{
 		this.fileId = fileId;
 		this.chunkNo = chunkNo;
 		this.bytes = bytes;
+		this.setType("CHUNK");
 	}
 
 }

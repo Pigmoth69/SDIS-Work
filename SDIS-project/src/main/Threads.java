@@ -39,7 +39,7 @@ public class Threads extends Thread{
 				str = connection.receive();
 				System.out.println("Recebi!");
 				Message msg = Message.parseMessage(str.getBytes());
-				System.out.println("aceder aos valores de msg: " + msg.getChunkNo());
+				System.out.println("aceder aos valores de msg: " + msg.getType());
 				/*
 				PutChunkMessage b = (PutChunkMessage)c;
 				System.out.println("ChunkNO: "+b.getChunkNO());*/
