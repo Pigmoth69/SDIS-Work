@@ -93,7 +93,7 @@ public class messageHandling extends Thread{
 		GetChunkMessage gt = (GetChunkMessage)msg;
 		System.out.println("IDS: " + gt.getSenderId().getId() + " -> " + peer.getSenderId());
 		if (gt.getSenderId().getId().equals(peer.getSenderId())){
-			System.out.println("Dei o peido1");
+			System.out.println("Dei o peido1 getchunk");
 			return;
 		}
 		System.out.println("Dei o peido2");

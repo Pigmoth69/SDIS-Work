@@ -23,8 +23,10 @@ public class Message {
 
 	public static Message parseMessage(byte[] data){
 		String dataString = new String(data);
-		String[] dataArgs = dataString.split(CRLF + CRLF); //separates the message into header [0] and body [1]
-		
+		String[] dataArgs = dataString.split(CRLF+CRLF); //separates the message into header [0] and body [1]
+		System.out.println("Args");
+		System.out.println(dataArgs.length);
+		System.out.println(dataArgs[0]);
 		String[] inputHeaders = dataArgs[0].split(CRLF);  //only the header at[0] will be processed and the other are considered erroneous
 		String[] header = inputHeaders[0].split("\\s+"); //separates all header parts
 		
@@ -114,6 +116,8 @@ public class Message {
 	}
 	
 	private static ChunkMessage parseCHUNK(String[] header, String body){
+		System.out.println("sizeee: "+header.length);
+		//System.out.println(header[5]);
 		if(header.length != 5)
 			return null;
 		

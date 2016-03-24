@@ -37,11 +37,17 @@ public class ChannelThreads extends Thread{
 			try {
 				System.out.println("Vou tentar receber coisas...");
 				str = connection.receive();
-				System.out.println("Recebi!");
-				//System.out.println(str.substring(0, 150));
+				System.out.println("Recebi1!");
+				//System.out.println(str);
 				Message msg = Message.parseMessage(str.getBytes());
+				
+				System.out.println("Recebi2!");
+				System.out.println(peer.getSenderId());
+				System.out.println(msg.getType());
 				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
+				System.out.println("Recebi3!");
 				msgRec.start();
+				System.out.println("Recebi4!");
 				/*
 				PutChunkMessage b = (PutChunkMessage)c;
 				System.out.println("ChunkNO: "+b.getChunkNO());*/
