@@ -83,10 +83,14 @@ public class messageHandling extends Thread{
 	
 	private void handSTORED(){
 		StoredMessage sto = (StoredMessage)msg;		
+		if (sto.getSenderId().getId() == peer.getSenderId())
+			return;
 	}
 	
 	private void handGETCHUNK(){
 		GetChunkMessage gt = (GetChunkMessage)msg;
+		if (gt.getSenderId().getId() == peer.getSenderId())
+			return;
 		ChunkMessage ch = gt.doIt();
 		ch.setSenderId(new SenderId(peer.getSenderId()));
 		if (ch != null){
@@ -105,6 +109,8 @@ public class messageHandling extends Thread{
 	
 	private void handCHUNK(){
 		ChunkMessage ch = (ChunkMessage)msg;
+		if (ch.getSenderId().getId() == peer.getSenderId())
+			return;
 		System.out.println("Recebi o chunk.");
 	}
 	

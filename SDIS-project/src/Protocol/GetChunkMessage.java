@@ -64,4 +64,36 @@ public class GetChunkMessage  extends Message{
 		
 	}
 
+	public Version getMessageVersion() {
+		return messageVersion;
+	}
+
+	public void setMessageVersion(Version messageVersion) {
+		this.messageVersion = messageVersion;
+	}
+
+	public SenderId getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(SenderId senderId) {
+		this.senderId = senderId;
+	}
+
+	public char[] getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(char[] fileId) {
+		this.fileId = fileId;
+	}
+
+	public int getChunkNo() {
+		return chunkNo;
+	}
+
+	public void setChunkNo(int chunkNo) {
+		this.chunkNo = chunkNo;
+	}
+
 }
