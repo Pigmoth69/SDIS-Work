@@ -1,6 +1,8 @@
 package main;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Peer {
 	private static Connection MC;
@@ -10,7 +12,16 @@ public class Peer {
 	private static String MCaddr;
 	private static String MDBaddr;
 	private static String MDRaddr;
+	private String senderId;
 	
+	public String getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
+	}
+
 	public Connection getMC() {
 		return MC;
 	}
@@ -50,6 +61,11 @@ public class Peer {
 		MCport = Integer.parseInt(args[1]);
 		MDBport = Integer.parseInt(args[3]);
 		MDRport = Integer.parseInt(args[5]);
+		try {
+			senderId = InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
 		
 		
 		try{

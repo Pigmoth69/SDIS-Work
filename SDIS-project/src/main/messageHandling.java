@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Random;
 
 import Protocol.ChunkMessage;
@@ -64,15 +65,20 @@ public class messageHandling extends Thread{
 	
 	private void handPUTCHUNK(){
 		PutChunkMessage put = (PutChunkMessage)msg;
+		if (put.getSenderId().getId() == peer.getSenderId())
+			return;
 		put.doIt();
-		StoredMessage sto = new StoredMessage(put.getMessageVersion(), put.getSenderId(),put.getFileId(), put.getChunkNo());
+		System.out.println("creating stored msg");
+		StoredMessage sto = new StoredMessage(put.getMessageVersion(), new SenderId(peer.getSenderId()) ,put.getFileId(), put.getChunkNo());
 		Connection con = peer.getMC();
-		try {
+		/*try {
+			System.out.println("sending stored msg");
 			Thread.sleep(50);
 			con.send(sto.toString());
+			System.out.println("sents stored msg");
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}  
 	
 	private void handSTORED(){
@@ -82,6 +88,7 @@ public class messageHandling extends Thread{
 	private void handGETCHUNK(){
 		GetChunkMessage gt = (GetChunkMessage)msg;
 		ChunkMessage ch = gt.doIt();
+		ch.setSenderId(new SenderId(peer.getSenderId()));
 		if (ch != null){
 			Connection con = peer.getMDR();
 			try{
