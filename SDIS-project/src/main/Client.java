@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
@@ -103,8 +104,9 @@ public class Client {
 			
 			readFile.read(tempData);
 			String data = new String(tempData);
-			
-			String send = new String("PUTCHUNK 1.0 "+peer_access_point+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n "+data);
+			String peerID;
+			peerID = InetAddress.getLocalHost().getHostName();
+			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n "+data);
 			con.send(send);
 			chunkNO++;
 			TimeUnit.MILLISECONDS.sleep(50);
