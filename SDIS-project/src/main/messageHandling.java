@@ -72,14 +72,14 @@ public class messageHandling extends Thread{
 		System.out.println("creating stored msg");
 		StoredMessage sto = new StoredMessage(put.getMessageVersion(), new SenderId(peer.getSenderId()) ,put.getFileId(), put.getChunkNo());
 		Connection con = peer.getMC();
-		/*try {
+		try {
 			System.out.println("sending stored msg");
 			Thread.sleep(50);
 			con.send(sto.toString());
-			System.out.println("sents stored msg");
+			System.out.println("sent stored msg");
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}  
 	
 	private void handSTORED(){

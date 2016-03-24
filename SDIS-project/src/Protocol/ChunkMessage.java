@@ -59,7 +59,7 @@ public class ChunkMessage extends Message{
 
 	@Override
 	public String toString() {
-		return "CHUNK " + messageVersion.toString() + " " + senderId.getId() + " " + new String(fileId) + " " + chunkNo + " /r/n/r/n " + new String(bytes);
+		return "CHUNK " + messageVersion.toString() + " " + senderId.getId() + " " + new String(fileId) + " " + chunkNo + " \r\n\r\n " + new String(bytes);
 	}
 
 }
