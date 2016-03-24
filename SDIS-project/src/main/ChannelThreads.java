@@ -39,16 +39,16 @@ public class ChannelThreads extends Thread{
 				str = connection.receive();
 				System.out.println("Recebi!");
 				Message msg = Message.parseMessage(str.getBytes());
-				messageHandling msgRec = new messageHandling(msg, msg.getType());
+				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
 				msgRec.start();
 				/*
 				PutChunkMessage b = (PutChunkMessage)c;
 				System.out.println("ChunkNO: "+b.getChunkNO());*/
 				
 					
-				Thread.sleep(50);
+				/*Thread.sleep(50);
 			} catch (InterruptedException e) {
-				System.out.println("Thread " +  threadName + " interrupted.");
+				System.out.println("Thread " +  threadName + " interrupted.");*/
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

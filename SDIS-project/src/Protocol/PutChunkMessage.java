@@ -10,6 +10,43 @@ public class PutChunkMessage extends Message{
 	Version messageVersion;
 	SenderId senderId;
 	char[] fileId;
+	public Version getMessageVersion() {
+		return messageVersion;
+	}
+	public void setMessageVersion(Version messageVersion) {
+		this.messageVersion = messageVersion;
+	}
+	public SenderId getSenderId() {
+		return senderId;
+	}
+	public void setSenderId(SenderId senderId) {
+		this.senderId = senderId;
+	}
+	public char[] getFileId() {
+		return fileId;
+	}
+	public void setFileId(char[] fileId) {
+		this.fileId = fileId;
+	}
+	public int getChunkNo() {
+		return chunkNo;
+	}
+	public void setChunkNo(int chunkNo) {
+		this.chunkNo = chunkNo;
+	}
+	public int getReplicationDeg() {
+		return replicationDeg;
+	}
+	public void setReplicationDeg(int replicationDeg) {
+		this.replicationDeg = replicationDeg;
+	}
+	public byte[] getBytes() {
+		return bytes;
+	}
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
+
 	int chunkNo;
 	int replicationDeg;
 	byte[] bytes;
@@ -23,9 +60,6 @@ public class PutChunkMessage extends Message{
 		this.replicationDeg = replicationDeg;
 		this.bytes = bytes;
 		this.setType("PUTCHUNK");
-	}
-	public int getChunkNO(){
-		return chunkNo;
 	}
 	
 	public void doIt(){
@@ -42,6 +76,7 @@ public class PutChunkMessage extends Message{
 		try {
 			System.out.println("Writing");
 			OutputStream os = new FileOutputStream("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
+			System.out.println("bytes.length = " + bytes.length);
 			for(int x=0; x < bytes.length ; x++){
 			   os.write( bytes[x] ); // writes the bytes
 			}

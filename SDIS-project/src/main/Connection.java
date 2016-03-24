@@ -34,7 +34,7 @@ public class Connection {
 	}
 	
 	public String receive() throws IOException{
-		byte[] buf = new byte[1024];
+		byte[] buf = new byte[70000];
 		
 		DatagramPacket msgPacket = new DatagramPacket(buf, 0,buf.length);
 		recSocket.receive(msgPacket);

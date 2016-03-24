@@ -15,4 +15,9 @@ public class StoredMessage  extends Message{
 		this.setType("STORED");
 	}
 
+	@Override
+	public String toString() {
+		return "STORED " + messageVersion.toString() + " " + senderId.getId() + " " + new String(fileId) + " " + chunkNo + " /r/n/r/n";
+	}
+
 }

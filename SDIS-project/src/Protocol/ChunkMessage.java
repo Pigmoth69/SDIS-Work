@@ -16,5 +16,10 @@ public class ChunkMessage extends Message{
 		this.bytes = bytes;
 		this.setType("CHUNK");
 	}
+	
+	@Override
+	public String toString() {
+		return "CHUNK " + messageVersion.toString() + " " + senderId.getId() + " " + new String(fileId) + " " + chunkNo + " /r/n/r/n " + new String(bytes);
+	}
 
 }
