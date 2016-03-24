@@ -37,7 +37,6 @@ public class ChannelThreads extends Thread{
 			try {
 				System.out.println("Vou tentar receber coisas...");
 				str = connection.receive();
-				System.out.println("strSize: " + str.length());
 				System.out.println("Recebi!");
 				Message msg = Message.parseMessage(str.getBytes());
 				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
