@@ -15,7 +15,10 @@ public class testSend {
 		MC.start();
 		Connection con = peer1.getMC();
 		try {
-			con.send("PUTCHUNK 1.0 1 b2 8 5 \r\n\r\n abcbdbasdbasdawd");
+			//con.send("PUTCHUNK 1.0 1 b2 8 5 \r\n\r\n abcbdbasdbasdawd");
+			System.out.println("getchunk");
+			con.send("GETCHUNK 1.0 "+peer1.getSenderId()+" 8024415A728490672CFA476712F23FBB3C58167B330C9538B7FB9BF83A50154B"+" 1 \r\n\r\n");
+			
 			/*System.out.println("stored");
 			con.send("STORED 1.0 1 b2 0 \r\n\r\n");
 			System.out.println("getchunk");
