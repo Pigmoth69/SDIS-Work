@@ -12,7 +12,10 @@ public class testSend {
 		Peer peer1 = new Peer(param);
 		
 		ChannelThreads MC = peer1.getMCThread();
+		ChannelThreads MDR = peer1.getMDRThread();
 		MC.start();
+		MDR.start();
+		
 		Connection con = peer1.getMC();
 		try {
 			//con.send("PUTCHUNK 1.0 1 b2 8 5 \r\n\r\n abcbdbasdbasdawd");
