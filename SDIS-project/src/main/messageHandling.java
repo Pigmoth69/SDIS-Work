@@ -89,6 +89,7 @@ public class messageHandling extends Thread{
 	
 	private void handGETCHUNK(){
 		GetChunkMessage gt = (GetChunkMessage)msg;
+		System.out.println("IDS: " + gt.getSenderId().getId() + " -> " + peer.getSenderId());
 		if (gt.getSenderId().getId() == peer.getSenderId())
 			return;
 		ChunkMessage ch = gt.doIt();
