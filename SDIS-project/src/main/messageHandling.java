@@ -65,7 +65,7 @@ public class messageHandling extends Thread{
 	
 	private void handPUTCHUNK(){
 		PutChunkMessage put = (PutChunkMessage)msg;
-		if (put.getSenderId().getId() == peer.getSenderId())
+		if (put.getSenderId().getId().equals(peer.getSenderId()))
 			return;
 		put.doIt();
 		System.out.println("creating stored msg");
@@ -83,15 +83,18 @@ public class messageHandling extends Thread{
 	
 	private void handSTORED(){
 		StoredMessage sto = (StoredMessage)msg;		
-		if (sto.getSenderId().getId() == peer.getSenderId())
+		if (sto.getSenderId().getId().equals(peer.getSenderId()))
 			return;
 	}
 	
 	private void handGETCHUNK(){
 		GetChunkMessage gt = (GetChunkMessage)msg;
 		System.out.println("IDS: " + gt.getSenderId().getId() + " -> " + peer.getSenderId());
-		if (gt.getSenderId().getId() == peer.getSenderId())
+		if (gt.getSenderId().getId().equals(peer.getSenderId())){
+			System.out.println("Dei o peido1");
 			return;
+		}
+		System.out.println("Dei o peido2");
 		ChunkMessage ch = gt.doIt();
 		ch.setSenderId(new SenderId(peer.getSenderId()));
 		if (ch != null){
@@ -110,7 +113,7 @@ public class messageHandling extends Thread{
 	
 	private void handCHUNK(){
 		ChunkMessage ch = (ChunkMessage)msg;
-		if (ch.getSenderId().getId() == peer.getSenderId())
+		if (ch.getSenderId().getId().equals(peer.getSenderId()))
 			return;
 		System.out.println("Recebi o chunk.");
 	}
