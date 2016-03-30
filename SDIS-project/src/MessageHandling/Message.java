@@ -1,15 +1,11 @@
-package Protocol;
+package MessageHandling;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import Protocol.ChunkMessage;
-import Protocol.DeleteMessage;
-import Protocol.GetChunkMessage;
-import Protocol.PutChunkMessage;
-import Protocol.RemovedMessage;
-import Protocol.StoredMessage;
+import Protocol.SenderId;
+import Protocol.Version;
 
 public class Message {
 	

@@ -1,11 +1,11 @@
-package main;
+package comunication;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import Protocol.Message;
-import Protocol.PutChunkMessage;
+import MessageHandling.Message;
+import MessageHandling.PutChunkMessage;
 
 public class ChannelThreads extends Thread{
 	private Thread t;

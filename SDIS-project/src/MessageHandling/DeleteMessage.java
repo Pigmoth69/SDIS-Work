@@ -1,6 +1,9 @@
-package Protocol;
+package MessageHandling;
 
 import java.io.File;
+
+import Protocol.SenderId;
+import Protocol.Version;
 
 public class DeleteMessage  extends Message{
 	Version messageVersion;

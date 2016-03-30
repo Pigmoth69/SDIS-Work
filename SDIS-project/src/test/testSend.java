@@ -2,9 +2,9 @@ package test;
 
 import java.io.IOException;
 
-import main.Connection;
-import main.Peer;
-import main.ChannelThreads;
+import comunication.ChannelThreads;
+import comunication.Connection;
+import comunication.Peer;
 
 public class testSend {
 	public static void main(String args[]){

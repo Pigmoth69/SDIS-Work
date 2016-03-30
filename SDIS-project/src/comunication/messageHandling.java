@@ -1,17 +1,17 @@
-package main;
+package comunication;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Random;
 
-import Protocol.ChunkMessage;
-import Protocol.DeleteMessage;
-import Protocol.GetChunkMessage;
-import Protocol.Message;
-import Protocol.PutChunkMessage;
-import Protocol.RemovedMessage;
+import MessageHandling.ChunkMessage;
+import MessageHandling.DeleteMessage;
+import MessageHandling.GetChunkMessage;
+import MessageHandling.Message;
+import MessageHandling.PutChunkMessage;
+import MessageHandling.RemovedMessage;
+import MessageHandling.StoredMessage;
 import Protocol.SenderId;
-import Protocol.StoredMessage;
 import Protocol.Version;
 
 public class messageHandling extends Thread{
@@ -20,7 +20,7 @@ public class messageHandling extends Thread{
 	private String threadName;
 	private Peer peer;
 	
-	messageHandling(Peer peer, Message msg, String name){
+	public messageHandling(Peer peer, Message msg, String name){
 		this.msg = msg;
 		this.threadName = name;
 		this.peer = peer;

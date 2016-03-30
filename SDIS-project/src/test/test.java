@@ -1,7 +1,7 @@
 package test;
 
-import main.Peer;
-import main.ChannelThreads;
+import comunication.ChannelThreads;
+import comunication.Peer;
 
 public class test {
 	public static void main(String args[]){

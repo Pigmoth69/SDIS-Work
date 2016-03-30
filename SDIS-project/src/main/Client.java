@@ -13,6 +13,10 @@ import java.util.regex.Pattern;
 
 import javax.xml.bind.DatatypeConverter;
 
+import comunication.ChannelThreads;
+import comunication.Connection;
+import comunication.Peer;
+
 public class Client {
 	
 	static Peer peer;
