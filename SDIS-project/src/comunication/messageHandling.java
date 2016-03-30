@@ -1,7 +1,6 @@
 package comunication;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Random;
 
 import MessageHandling.ChunkMessage;
@@ -11,8 +10,6 @@ import MessageHandling.Message;
 import MessageHandling.PutChunkMessage;
 import MessageHandling.RemovedMessage;
 import MessageHandling.StoredMessage;
-import Protocol.SenderId;
-import Protocol.Version;
 
 public class messageHandling extends Thread{
 	private Thread t;

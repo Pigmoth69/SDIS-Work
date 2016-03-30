@@ -82,9 +82,10 @@ public class PutChunkMessage extends Message{
 			OutputStream os = new FileOutputStream("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
 			
 			
-			for(int x=0; x < bytes.length ; x++){
+			os.write(bytes,0,bytes.length);
+			/*for(int x=0; x < bytes.length ; x++){
 			   os.write( bytes[x] ); // writes the bytes
-			}
+			}*/
 			os.close();
 			Chunk ck = new Chunk(this.fileId, this.chunkNo, this.replicationDeg);
 		} catch (FileNotFoundException e) {
