@@ -107,11 +107,16 @@ public class Client {
 				tempData = new byte[readFile.available()];
 			
 			readFile.read(tempData);
-			String data = new String(tempData);
 			String peerID;
 			peerID = InetAddress.getLocalHost().getHostName();
-			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n "+data);
-			con.send(send);
+			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n ");
+			//criat array das cenas a enviar
+			byte[] sendAll = new byte[send.getBytes().length+tempData.length];
+			//fazer a copy do send para o sendAll
+			System.arraycopy(send.getBytes(), 0, sendAll, 0, send.getBytes().length);
+			//fazer a copy do tempdata para o sendAll
+			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
+			con.send(sendAll);
 			chunkNO++;
 			TimeUnit.MILLISECONDS.sleep(100);
 		}

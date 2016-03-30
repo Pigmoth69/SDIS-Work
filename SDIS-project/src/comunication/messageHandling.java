@@ -75,7 +75,7 @@ public class messageHandling extends Thread{
 		try {
 			System.out.println("sending stored msg");
 			Thread.sleep(50);
-			con.send(sto.toString());
+			con.send(sto.toString().getBytes());
 			System.out.println("sent stored msg");
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
@@ -106,7 +106,7 @@ public class messageHandling extends Thread{
 		        int number = generator.nextInt(400);
 				Thread.sleep(number);
 				System.out.println("Enviar chunk");
-				con.send(ch.toString());
+				con.send(ch.toString().getBytes());
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 			}
