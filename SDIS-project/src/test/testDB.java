@@ -23,11 +23,16 @@ public class testDB {
 			Info info = new Info(5000, 500, FilesShared, ChunksSaved);
 			
 			Serial s = new Serial(info);
-			s.Save();
+			s.Save("../database/info.db");
 		}
 		else{
 			Serial s = new Serial();
-			s.Load();
+			s.Load("../database/info.db");
+			
+			Info info = s.getInfo();
+			
+			Chunk ck = info.getChunksSsaved().get(1);
+			System.out.println(ck.getFileId().toString() + " -> " + ck.getChunkNo());
 		}
 		
 	}

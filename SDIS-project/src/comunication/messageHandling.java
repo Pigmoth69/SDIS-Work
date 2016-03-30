@@ -10,6 +10,7 @@ import MessageHandling.Message;
 import MessageHandling.PutChunkMessage;
 import MessageHandling.RemovedMessage;
 import MessageHandling.StoredMessage;
+import Protocol.SenderId;
 
 public class messageHandling extends Thread{
 	private Thread t;

@@ -22,25 +22,25 @@ public class Serial{
 		this.info = info;
 	}
 
-	public void Save(){
+	public void Save(String path){
 		try
 	      {
-	         FileOutputStream fileOut = new FileOutputStream("/database/info.db");
+	         FileOutputStream fileOut = new FileOutputStream(path);
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         out.writeObject(this.info);
 	         out.close();
 	         fileOut.close();
-	         System.out.printf("Serialized data is saved in /database/info.db");
+	         System.out.printf("Serialized data is saved in " + path);
 	      }catch(IOException i)
 	      {
 	          i.printStackTrace();
 	      }
 	}
 	
-	public void Load(){
+	public void Load(String path){
 		try
 	      {
-	         FileInputStream fileIn = new FileInputStream("/database/info.db");
+	         FileInputStream fileIn = new FileInputStream(path);
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         this.info = (Info) in.readObject();
 	         in.close();
