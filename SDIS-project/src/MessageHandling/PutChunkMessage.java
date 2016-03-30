@@ -78,9 +78,9 @@ public class PutChunkMessage extends Message{
 			FileDir.mkdirs();
 		}
 		try {
-			System.out.println("Writing");
+			System.out.println("Writing Chunk file with size: " + bytes.length);
 			OutputStream os = new FileOutputStream("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
-			System.out.println("bytes.length = " + bytes.length);
+			
 			
 			for(int x=0; x < bytes.length ; x++){
 			   os.write( bytes[x] ); // writes the bytes

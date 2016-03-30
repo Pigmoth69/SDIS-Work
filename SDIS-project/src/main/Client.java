@@ -117,6 +117,7 @@ public class Client {
 			//fazer a copy do tempdata para o sendAll
 			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
 			con.send(sendAll);
+			//System.in.read();
 			chunkNO++;
 			TimeUnit.MILLISECONDS.sleep(100);
 		}
