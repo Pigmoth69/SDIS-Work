@@ -3,7 +3,9 @@ package main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -96,16 +98,19 @@ public class Client {
         byte[] digest = md.digest();
         String fileId = DatatypeConverter.printHexBinary(digest);
         
-		while(readFile.available() > 0){
-			if(readFile.available()>= 64000)
+        int numberBytes = (int) file.length();
+        
+        System.out.println("Tamanho: "+numberBytes);
+		while(numberBytes > 0){
+			if(numberBytes >= 64000)
 				 tempData = new byte[64000];
 			else
-				tempData = new byte[readFile.available()];
+				tempData = new byte[numberBytes];
 			
 			readFile.read(tempData);
 			String peerID;
 			peerID = InetAddress.getLocalHost().getHostName();
-			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n ");
+			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			//criat array das cenas a enviar
 			byte[] sendAll = new byte[send.getBytes().length+tempData.length];
 			//fazer a copy do send para o sendAll
@@ -114,12 +119,15 @@ public class Client {
 			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
 			con.send(sendAll);
 			chunkNO++;
+			numberBytes-=64000;
+			//faz o wait			
+			System.in.read();
 			TimeUnit.MILLISECONDS.sleep(100);
 		}
 		System.out.println("Ending Sending chunks! \n \n");
 		System.out.println(chunkNO);
 		
-		
+        
 		
 	}
 
