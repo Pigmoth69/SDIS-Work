@@ -123,6 +123,12 @@ public class messageHandling extends Thread{
 	
 	private void handDELETE(){
 		DeleteMessage dl = (DeleteMessage)msg;
+		System.out.println("IDS: " + dl.getSenderId().getId() + " -> " + peer.getSenderId());
+		if (dl.getSenderId().getId().equals(peer.getSenderId())){
+			System.out.println("Dei o peido1 getchunk");
+			return;
+		}
+		dl.doIt();
 	}
 	
 	private void handREMOVED(){

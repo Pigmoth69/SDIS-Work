@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import main.Chunk;
+
 public class PutChunkMessage extends Message{
 	Version messageVersion;
 	SenderId senderId;
@@ -82,6 +84,7 @@ public class PutChunkMessage extends Message{
 			   os.write( bytes[x] ); // writes the bytes
 			}
 			os.close();
+			Chunk ck = new Chunk(this.fileId, this.chunkNo, new String(this.bytes), this.replicationDeg);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
