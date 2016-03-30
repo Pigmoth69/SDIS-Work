@@ -1,5 +1,9 @@
 package Protocol;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import Protocol.ChunkMessage;
 import Protocol.DeleteMessage;
 import Protocol.GetChunkMessage;
@@ -23,7 +27,7 @@ public class Message {
 
 	public static Message parseMessage(byte[] data){
 		String dataString = new String(data);
-		String[] dataArgs = dataString.split(CRLF+CRLF); //separates the message into header [0] and body [1]
+		String[] dataArgs = dataString.split(CRLF+CRLF+" "); //separates the message into header [0] and body [1] OMG... FDS faltava a merda de um " " para qe funcionasse -.-
 		System.out.println("Args");
 		System.out.println(dataArgs.length);
 		System.out.println(dataArgs[0]);
@@ -36,6 +40,7 @@ public class Message {
 		
 		//System.out.println("body size: " + body.length());
 		//returns the message in case of success or null in case of error
+		
 		return getMessageType(header, body);		
 		
 		
@@ -61,7 +66,10 @@ public class Message {
 		return null;
 	}
 	
-	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {		
+	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {
+		/*System.out.println("Message: ");
+		OutputStream teste = new FileOutputStream("body.txt");
+		teste.write(body.getBytes());*/
 		if(header.length != 6)
 			return null;
 		

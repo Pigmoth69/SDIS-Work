@@ -109,7 +109,7 @@ public class Client {
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n "+data);
 			con.send(send);
 			chunkNO++;
-			TimeUnit.MILLISECONDS.sleep(50);
+			TimeUnit.MILLISECONDS.sleep(100);
 		}
 		System.out.println("Ending Sending chunks! \n \n");
 		System.out.println(chunkNO);

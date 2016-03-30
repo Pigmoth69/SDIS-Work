@@ -1,6 +1,8 @@
 package main;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import Protocol.Message;
 import Protocol.PutChunkMessage;
@@ -37,6 +39,7 @@ public class ChannelThreads extends Thread{
 			try {
 				System.out.println("Vou tentar receber coisas...");
 				str = connection.receive();
+
 				System.out.println("Recebi1!");
 				//System.out.println(str);
 				Message msg = Message.parseMessage(str.getBytes());
