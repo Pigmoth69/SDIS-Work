@@ -16,16 +16,15 @@ public class FileTestMiddleWrite {
 	
 	
 	public static void main(String[] args) throws IOException {
-		String filename = "t.png";
+		String filename = "c.png";
 
 		FileHandler h = new FileHandler(filename);
-
+		
 		for(int i = 1 ; i <= 20;i++){
-			FileInputStream f = new FileInputStream("Chunks//DB06D010D1894B2A732B8A33CDFBD38E9F80A815D9B8517D7EFB6F092F45E431//"+i+".chk");
-			int totalFileSize = f.available();
+			File file = new File("Chunks//DB06D010D1894B2A732B8A33CDFBD38E9F80A815D9B8517D7EFB6F092F45E431//"+i+".chk");
+			FileInputStream f = new FileInputStream(file);
+			int totalFileSize = (int)file.length();
 			byte[] buffer = new byte[totalFileSize];
-			System.out.println("Primeiro byte: "+buffer[0]);
-			System.out.println("Último byte: "+buffer[totalFileSize-1]);
 			f.read(buffer);
 			h.writeOnFile(buffer);
 			}
