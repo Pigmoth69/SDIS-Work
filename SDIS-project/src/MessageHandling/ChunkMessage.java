@@ -1,4 +1,7 @@
-package Protocol;
+package MessageHandling;
+
+import Protocol.SenderId;
+import Protocol.Version;
 
 public class ChunkMessage extends Message{
 	Version messageVersion; 

@@ -1,15 +1,11 @@
-package Protocol;
+package MessageHandling;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import Protocol.ChunkMessage;
-import Protocol.DeleteMessage;
-import Protocol.GetChunkMessage;
-import Protocol.PutChunkMessage;
-import Protocol.RemovedMessage;
-import Protocol.StoredMessage;
+import Protocol.SenderId;
+import Protocol.Version;
 
 public class Message {
 	
@@ -38,8 +34,6 @@ public class Message {
 		if(dataArgs.length > 1)
 			body = dataArgs[1];
 		
-		//System.out.println("body size: " + body.length());
-		//returns the message in case of success or null in case of error
 		
 		return getMessageType(header, body);		
 		
@@ -67,9 +61,7 @@ public class Message {
 	}
 	
 	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {
-		/*System.out.println("Message: ");
-		OutputStream teste = new FileOutputStream("body.txt");
-		teste.write(body.getBytes());*/
+		
 		if(header.length != 6)
 			return null;
 		
@@ -85,9 +77,7 @@ public class Message {
 		
 		int replicationDeg = Integer.parseInt(header[5]);
 		
-		/*System.out.println("Version: " + messageVersion.toString() + "; SenderId: " + senderId.getId() + "; fileId: " + fileId[0]
-				+ "; chunckNo: " + chunkNo + "; replicationDeg: " + replicationDeg);
-		*/
+		
 		return new PutChunkMessage(messageVersion, senderId, fileId, chunkNo, replicationDeg, body.getBytes());
 	}
 	
@@ -124,8 +114,7 @@ public class Message {
 	}
 	
 	private static ChunkMessage parseCHUNK(String[] header, String body){
-		System.out.println("sizeee: "+header.length);
-		//System.out.println(header[5]);
+		
 		if(header.length != 5)
 			return null;
 		

@@ -15,6 +15,10 @@ import java.util.regex.Pattern;
 
 import javax.xml.bind.DatatypeConverter;
 
+import comunication.ChannelThreads;
+import comunication.Connection;
+import comunication.Peer;
+
 public class Client {
 	
 	static Peer peer;
@@ -118,6 +122,7 @@ public class Client {
 			//fazer a copy do tempdata para o sendAll
 			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
 			con.send(sendAll);
+			//System.in.read();
 			chunkNO++;
 			numberBytes-=64000;
 			//faz o wait			

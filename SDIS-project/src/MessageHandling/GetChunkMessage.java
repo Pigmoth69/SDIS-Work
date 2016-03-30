@@ -1,4 +1,4 @@
-package Protocol;
+package MessageHandling;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import Protocol.SenderId;
+import Protocol.Version;
 
 public class GetChunkMessage  extends Message{
 	Version messageVersion;

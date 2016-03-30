@@ -1,11 +1,11 @@
-package main;
+package comunication;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import Protocol.Message;
-import Protocol.PutChunkMessage;
+import MessageHandling.Message;
+import MessageHandling.PutChunkMessage;
 
 public class ChannelThreads extends Thread{
 	private Thread t;
@@ -37,20 +37,13 @@ public class ChannelThreads extends Thread{
 		System.out.println("Running " +  threadName );
 		while(true){
 			try {
-				System.out.println("Vou tentar receber coisas...");
+				System.out.println("Waiting a call in " + this.threadName);
 				str = connection.receive();
 
-				System.out.println("Recebi1!");
-				//System.out.println(str);
 				Message msg = Message.parseMessage(str.getBytes());
 				
-				System.out.println("Recebi2!");
-				System.out.println(peer.getSenderId());
-				System.out.println(msg.getType());
 				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
-				System.out.println("Recebi3!");
 				msgRec.start();
-				System.out.println("Recebi4!");
 				/*
 				PutChunkMessage b = (PutChunkMessage)c;
 				System.out.println("ChunkNO: "+b.getChunkNO());*/

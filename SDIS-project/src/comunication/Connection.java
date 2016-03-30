@@ -1,5 +1,5 @@
-package main;
-import java.io.FileOutputStream;
+package comunication;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -30,9 +30,11 @@ public class Connection {
 	}
 
 	public void send(byte[] msg) throws IOException{
+		
 		DatagramPacket msgPacket = new DatagramPacket(msg,msg.length, mAddr, mcast_port);
+		System.out.println("Sent: " + new String(msg).substring(0, 40) + "...");
 		sendSocket.send(msgPacket); 
-        //System.out.println("Server sent packet with msg: " + msg.substring(0, 150));
+        
 	}
 	
 	public String receive() throws IOException{
@@ -41,6 +43,7 @@ public class Connection {
 		DatagramPacket msgPacket = new DatagramPacket(buf, 0,buf.length);
 		recSocket.receive(msgPacket);
         String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
+        System.out.println("Received: " + msg.substring(0, 40) + "...");
         return msg;
 	}
 }

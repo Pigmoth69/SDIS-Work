@@ -1,4 +1,4 @@
-package Protocol;
+package MessageHandling;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import Protocol.SenderId;
+import Protocol.Version;
 import main.Chunk;
 
 public class PutChunkMessage extends Message{
@@ -76,9 +78,9 @@ public class PutChunkMessage extends Message{
 			FileDir.mkdirs();
 		}
 		try {
-			System.out.println("Writing");
+			System.out.println("Writing Chunk file with size: " + bytes.length);
 			OutputStream os = new FileOutputStream("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
-			System.out.println("bytes.length = " + bytes.length);
+			
 			
 			os.write(bytes,0,bytes.length);
 			/*for(int x=0; x < bytes.length ; x++){
