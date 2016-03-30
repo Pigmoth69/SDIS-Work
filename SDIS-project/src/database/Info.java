@@ -7,6 +7,10 @@ import java.util.HashMap;
 import main.Chunk;
 
 public class Info implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int TotalMemory;
 	int UsedMemory;
 	HashMap<String, String> FilesShared;

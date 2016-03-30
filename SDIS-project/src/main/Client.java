@@ -105,6 +105,8 @@ public class Client {
         int numberBytes = (int) file.length();
         
         System.out.println("Tamanho: "+numberBytes);
+        
+       
 		while(numberBytes > 0){
 			if(numberBytes >= 64000)
 				 tempData = new byte[64000];
@@ -124,9 +126,9 @@ public class Client {
 			con.send(sendAll);
 			//System.in.read();
 			chunkNO++;
-			numberBytes-=64000;
+			numberBytes= numberBytes-64000;
 			//faz o wait			
-			System.in.read();
+		//	System.in.read();
 			TimeUnit.MILLISECONDS.sleep(100);
 		}
 		System.out.println("Ending Sending chunks! \n \n");

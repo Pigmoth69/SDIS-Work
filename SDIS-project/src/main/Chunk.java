@@ -1,6 +1,12 @@
 package main;
 
-public class Chunk {
+import java.io.Serializable;
+
+public class Chunk implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int chunkNo;
 	char[] fileId;
 	int replicationDeg;
