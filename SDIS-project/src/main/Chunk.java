@@ -1,25 +1,16 @@
 package main;
 
 public class Chunk {
-	String data;
 	int chunkNo;
 	char[] fileId;
 	int replicationDeg;
 	
-	public Chunk(char[] fileId, int chunkNo, String data, int replicationDeg){
+	public Chunk(char[] fileId, int chunkNo, int replicationDeg){
 		this.fileId = fileId;
 		this.chunkNo = chunkNo;
-		this.data = data;
 		this.replicationDeg = replicationDeg;
 	}
 
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
 
 	public int getChunkNo() {
 		return chunkNo;
