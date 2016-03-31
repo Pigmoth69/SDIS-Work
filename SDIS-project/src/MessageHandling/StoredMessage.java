@@ -54,5 +54,9 @@ public class StoredMessage  extends Message{
 	public String toString() {
 		return "STORED " + messageVersion.toString() + " " + senderId.getId() + " " + new String(fileId) + " " + chunkNo + " \r\n\r\n";
 	}
+	
+	public void doIt(){
+		
+	}
 
 }

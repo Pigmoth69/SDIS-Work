@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
+import database.Info;
 import Protocol.SenderId;
 import Protocol.Version;
 
@@ -13,7 +14,16 @@ public class Message {
 	public static final String CRLF = "\r\n";
 	
 	private String type;
+	private Info info;
 	
+	public Info getInfo() {
+		return info;
+	}
+
+	public void setInfo(Info info) {
+		this.info = info;
+	}
+
 	public String getType() {
 		return type;
 	}

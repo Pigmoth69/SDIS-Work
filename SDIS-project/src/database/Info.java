@@ -13,7 +13,8 @@ public class Info implements Serializable{
 	private static final long serialVersionUID = 1L;
 	int TotalMemory;
 	int UsedMemory;
-	HashMap<String, String> FilesShared;
+	ArrayList<Chunk> ChunksSaved;
+	
 	public int getTotalMemory() {
 		return TotalMemory;
 	}
@@ -30,28 +31,28 @@ public class Info implements Serializable{
 		UsedMemory = usedMemory;
 	}
 
-	public HashMap<String, String> getFilesShared() {
-		return FilesShared;
-	}
-
-	public void setFilesShared(HashMap<String, String> filesShared) {
-		FilesShared = filesShared;
-	}
-
 	public ArrayList<Chunk> getChunksSsaved() {
-		return ChunksSsaved;
+		return ChunksSaved;
 	}
 
-	public void setChunksSsaved(ArrayList<Chunk> chunksSsaved) {
-		ChunksSsaved = chunksSsaved;
+	public void setChunksSsaved(ArrayList<Chunk> chunksSaved) {
+		this.ChunksSaved = chunksSaved;
 	}
 
-	ArrayList<Chunk> ChunksSsaved;
+	public int getChunkIndex(char[] fileId, int chunkNo){
+		Chunk ck;
+		for (int i = 0; i < ChunksSaved.size(); i++){
+			ck = ChunksSaved.get(i);
+			if (ck.getFileId().equals(fileId) && ck.getChunkNo() == chunkNo){
+				return i;
+			}
+		}
+		return -1;
+	}
 	
-	public Info(int TotalMemory, int UsedMemory, HashMap<String, String> FilesShared, ArrayList<Chunk> ChunksSsaved){
+	public Info(int TotalMemory, int UsedMemory, ArrayList<Chunk> ChunksSaved){
 		this.TotalMemory = TotalMemory;
 		this.UsedMemory = UsedMemory;
-		this.FilesShared = FilesShared;
-		this.ChunksSsaved = ChunksSsaved;
+		this.ChunksSaved = ChunksSaved;
 	}
 }
