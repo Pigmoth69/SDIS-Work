@@ -1,5 +1,10 @@
 package MessageHandling;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import main.Chunk;
+import database.Info;
 import Protocol.SenderId;
 import Protocol.Version;
 
@@ -56,7 +61,14 @@ public class StoredMessage  extends Message{
 	}
 	
 	public void doIt(){
+		Info info = getInfo();
+		int i = info.getChunkIndex(this.fileId, this.chunkNo);
 		
+		if (i == -1){
+			ArrayList<Chunk> cks = info.getChunksSaved();
+			//Chunk ck = new Chunk(this.fileId, this.chunkNo, this.replicationDeg, HashSet<String> peers)
+			//cks.add()
+		}
 	}
 
 }

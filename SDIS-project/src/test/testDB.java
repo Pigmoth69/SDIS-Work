@@ -27,7 +27,7 @@ public class testDB {
 			
 			Info info = s.getInfo();
 			
-			Chunk ck = info.getChunksSsaved().get(1);
+			Chunk ck = info.getChunksSaved().get(1);
 			System.out.println(new String(ck.getFileId()) + " -> " + ck.getChunkNo());
 		}
 		

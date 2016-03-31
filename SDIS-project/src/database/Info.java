@@ -31,11 +31,11 @@ public class Info implements Serializable{
 		UsedMemory = usedMemory;
 	}
 
-	public ArrayList<Chunk> getChunksSsaved() {
+	public ArrayList<Chunk> getChunksSaved() {
 		return ChunksSaved;
 	}
 
-	public void setChunksSsaved(ArrayList<Chunk> chunksSaved) {
+	public void setChunksSaved(ArrayList<Chunk> chunksSaved) {
 		this.ChunksSaved = chunksSaved;
 	}
 
