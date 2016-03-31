@@ -64,9 +64,9 @@ public class messageHandling extends Thread{
 	private void handPUTCHUNK(){
 		PutChunkMessage put = (PutChunkMessage)msg;
 		//System.out.println("IDS: " + put.getSenderId().getId() + " -> " + peer.getSenderId());
-		/*if (sentByMe(put.getSenderId().getId(), put.getType())){
+		if (sentByMe(put.getSenderId().getId(), put.getType())){
 			return;
-		}*/
+		}
 		
 		
 		put.doIt();
@@ -124,10 +124,10 @@ public class messageHandling extends Thread{
 	
 	private void handDELETE(){
 		DeleteMessage dl = (DeleteMessage)msg;
-		/*
+		
 		if (sentByMe(dl.getSenderId().getId(), dl.getType())){
 			return;
-		}*/
+		}
 		dl.doIt();
 	}
 	
