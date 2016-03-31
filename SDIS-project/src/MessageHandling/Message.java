@@ -3,6 +3,7 @@ package MessageHandling;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import Protocol.SenderId;
 import Protocol.Version;
@@ -30,9 +31,13 @@ public class Message {
 		String[] inputHeaders = dataArgs[0].split(CRLF);  //only the header at[0] will be processed and the other are considered erroneous
 		String[] header = inputHeaders[0].split("\\s+"); //separates all header parts
 		
-		String body = null;
-		if(dataArgs.length > 1)
-			body = dataArgs[1];
+		byte[] body = null;
+		if(dataArgs.length > 1){
+			int headerTam = dataArgs[0].length();
+			body = Arrays.copyOfRange(data, headerTam+1, data.length);
+			//byte[] example = Arrays.copyOfRange(body, 0, 50);
+			//System.out.println(new String(body));
+		}
 		
 		
 		return getMessageType(header, body);		
@@ -40,7 +45,7 @@ public class Message {
 		
 	}
 
-	private static Message getMessageType(String[] header, String body) {
+	private static Message getMessageType(String[] header, byte[] body) {
 		switch(header[0]){
 			case "PUTCHUNK":
 				return parsePUTCHUNK(header, body);
@@ -60,7 +65,7 @@ public class Message {
 		return null;
 	}
 	
-	private static PutChunkMessage parsePUTCHUNK(String header[], String body) {
+	private static PutChunkMessage parsePUTCHUNK(String header[], byte[] body) {
 		
 		if(header.length != 6)
 			return null;
@@ -78,7 +83,7 @@ public class Message {
 		int replicationDeg = Integer.parseInt(header[5]);
 		
 		
-		return new PutChunkMessage(messageVersion, senderId, fileId, chunkNo, replicationDeg, body.getBytes());
+		return new PutChunkMessage(messageVersion, senderId, fileId, chunkNo, replicationDeg, body);
 	}
 	
 	private static StoredMessage parseSTORED(String[] header) {
@@ -113,7 +118,7 @@ public class Message {
 		return new GetChunkMessage(messageVersion, senderId, fileId, chunkNo);
 	}
 	
-	private static ChunkMessage parseCHUNK(String[] header, String body){
+	private static ChunkMessage parseCHUNK(String[] header, byte[] body){
 		
 		if(header.length != 5)
 			return null;
@@ -128,7 +133,7 @@ public class Message {
 		
 		int chunkNo = Integer.parseInt(header[4]);
 		
-		return new ChunkMessage(messageVersion, senderId, fileId, chunkNo, body.getBytes());
+		return new ChunkMessage(messageVersion, senderId, fileId, chunkNo, body);
 	}
 
 	private static DeleteMessage parseDELETE(String[] header) {

@@ -38,9 +38,9 @@ public class ChannelThreads extends Thread{
 		while(true){
 			try {
 				System.out.println("Waiting a call in " + this.threadName);
-				str = connection.receive();
+				byte strB[] = connection.receive();
 
-				Message msg = Message.parseMessage(str.getBytes());
+				Message msg = Message.parseMessage(strB);
 				
 				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
 				msgRec.start();

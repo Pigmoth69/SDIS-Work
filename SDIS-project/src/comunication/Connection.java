@@ -32,18 +32,18 @@ public class Connection {
 	public void send(byte[] msg) throws IOException{
 		
 		DatagramPacket msgPacket = new DatagramPacket(msg,msg.length, mAddr, mcast_port);
-		System.out.println("Sent: " + new String(msg).substring(0, 40) + "...");
+		System.out.println("Sent: " + new String(msg).substring(0, 20) + "...");
 		sendSocket.send(msgPacket); 
         
 	}
 	
-	public String receive() throws IOException{
+	public byte[] receive() throws IOException{
 		byte[] buf = new byte[70000];
 		
 		DatagramPacket msgPacket = new DatagramPacket(buf, 0,buf.length);
 		recSocket.receive(msgPacket);
         String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
-        System.out.println("Received: " + msg.substring(0, 40) + "...");
-        return msg;
+        System.out.println("Received: " + msg.substring(0, 20) + "...");
+        return msgPacket.getData();
 	}
 }
