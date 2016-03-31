@@ -108,15 +108,24 @@ public class Client {
         
        
 		while(numberBytes > 0){
-			if(numberBytes >= 64000)
-				 tempData = new byte[64000];
-			else
-				tempData = new byte[numberBytes];
-			
-			readFile.read(tempData);
 			String peerID;
 			peerID = InetAddress.getLocalHost().getHostName();
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
+			
+			if(numberBytes >= 64000)
+				 tempData = new byte[64000-send.getBytes().length];
+			else{
+				if(numberBytes >=send.getBytes().length)
+					tempData = new byte[numberBytes-send.getBytes().length];
+				else
+					tempData = new byte[numberBytes];
+			}
+				
+			
+			readFile.read(tempData);
+			
+			
+			
 			//criat array das cenas a enviar
 			byte[] sendAll = new byte[send.getBytes().length+tempData.length];
 			//fazer a copy do send para o sendAll
