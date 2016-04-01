@@ -44,6 +44,10 @@ public class Connection {
 		recSocket.receive(msgPacket);
         String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
         System.out.println("Received: " + msg.substring(0, 20) + "...");
-        return msgPacket.getData();
+        
+        byte[] res = new byte[msgPacket.getLength()];
+        System.arraycopy(msgPacket.getData(), 0, res, 0, msgPacket.getLength());
+        
+        return res;
 	}
 }

@@ -44,7 +44,7 @@ public class Message {
 		byte[] body = null;
 		if(dataArgs.length > 1){
 			int headerTam = dataArgs[0].length();
-			body = Arrays.copyOfRange(data, headerTam+10, data.length);
+			body = Arrays.copyOfRange(data, headerTam+4, data.length);
 			//byte[] example = Arrays.copyOfRange(body, 0, 50);
 			//System.out.println(new String(body));
 		}
