@@ -37,7 +37,7 @@ public class Serial{
 	      }
 	}
 	
-	public void Load(String path){
+	public boolean Load(String path){
 		try
 	      {
 	         FileInputStream fileIn = new FileInputStream(path);
@@ -48,11 +48,13 @@ public class Serial{
 	      }catch(IOException i)
 	      {
 	         i.printStackTrace();
-	         return;
+	         return false;
 	      }catch(ClassNotFoundException c)
 	      {
 	         c.printStackTrace();
-	         return;
+	         return false;
 	      }
+		
+		return true;
 	}
 }

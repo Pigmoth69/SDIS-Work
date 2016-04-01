@@ -16,7 +16,7 @@ public class ChannelThreads extends Thread{
 	ChannelThreads(Peer peer, String name){
 		this.peer = peer;
 		threadName = name;
-		System.out.println("Creating " +  threadName );
+		//System.out.println("Creating " +  threadName );
 		switch(name){
 			case "MC":
 				connection = peer.getMC();
@@ -34,7 +34,7 @@ public class ChannelThreads extends Thread{
 	public void run() {
 		String str = "Nothing received";
 		
-		System.out.println("Running " +  threadName );
+		//System.out.println("Running " +  threadName );
 		while(true){
 			try {
 				System.out.println("Waiting a call in " + this.threadName);
@@ -56,20 +56,14 @@ public class ChannelThreads extends Thread{
 				e.printStackTrace();
 			}
 			
-			System.out.println("Thread " +  threadName + " exiting.");
+			//System.out.println("Thread " +  threadName + " exiting.");
 			
-			if (!str.equals("Nothing received")){
-				//System.out.println("Message received successfuly: " + str);
-			}
-			else{
-				System.out.println("Error receiving!");
-			}
 		}
 	}
    
 	public void start ()
 	{
-		System.out.println("Starting " +  threadName );
+		//System.out.println("Starting " +  threadName );
 		if (t == null)
 		{
 			t = new Thread (this, threadName);

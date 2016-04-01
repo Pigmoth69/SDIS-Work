@@ -59,7 +59,7 @@ public class messageHandling extends Thread{
 	
 	public void start ()
 	{
-		System.out.println("Starting " +  threadName );
+		//System.out.println("Starting " +  threadName );
 		if (t == null)
 		{
 			t = new Thread (this, threadName);
@@ -164,6 +164,13 @@ public class messageHandling extends Thread{
 		
 		if (sentByMe(rm.getSenderId().getId(), rm.getType())){
 			return;
+		}
+		
+		Info info = this.peer.getInfo();
+		int ckId = info.getChunkIndex(rm.getFileId(), rm.getChunkNo());
+		if (ckId != -1){
+			Chunk ck = info.getChunksSaved().get(ckId);
+			ck.removePeer(rm.getSenderId().getId());
 		}
 	}
 	

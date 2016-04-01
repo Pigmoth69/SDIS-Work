@@ -70,4 +70,11 @@ public class Info implements Serializable{
 		this.ChunksSaved = ChunksSaved;
 		this.FileRep = FileRep;
 	}
+	
+	public Info(){
+		this.TotalMemory = 5000;
+		this.UsedMemory = 0;
+		this.ChunksSaved = new ArrayList<Chunk>();
+		this.FileRep = new Hashtable<String, Integer>();
+	}
 }

@@ -45,6 +45,10 @@ public class Chunk implements Serializable{
 	public void addPeer(String peer){
 		this.peers.add(peer);
 	}
+	
+	public void removePeer(String peer){
+		this.peers.remove(peer);
+	}
 
 
 	public int getChunkNo() {

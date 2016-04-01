@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import database.Info;
+import database.Serial;
 
 public class Peer {
 	private static Connection MC;
@@ -16,6 +17,7 @@ public class Peer {
 	private static String MDRaddr;
 	private String senderId;
 	private Info info;
+	private Serial serial;
 	
 	public Info getInfo() {
 		return info;
@@ -90,7 +92,15 @@ public class Peer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//info = new Info()
+		
+		info = new Info();
+		serial = new Serial(info);
+		boolean loaded = serial.Load("database/info.db");
+		if (loaded){
+			info = serial.getInfo();
+		}
+		
+		
 		System.out.println("Iniciei as threads do PEER!!");
 		MCThread = new ChannelThreads(this, "MC");
 		MDBThread = new ChannelThreads(this, "MDB");
