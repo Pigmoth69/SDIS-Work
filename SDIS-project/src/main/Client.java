@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -105,9 +106,9 @@ public class Client {
         int numberBytes = (int) file.length();
         
         System.out.println("Tamanho: "+numberBytes);
-        
        
 		while(numberBytes > 0){
+			
 			String peerID;
 			peerID = InetAddress.getLocalHost().getHostName();
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
@@ -116,7 +117,7 @@ public class Client {
 				tempData = new byte[64000-send.getBytes().length];
 				numberBytes-=tempData.length;
 			}
-			else if(numberBytes >=send.getBytes().length){
+			else if(numberBytes+send.getBytes().length > 64000){
 				tempData = new byte[numberBytes-send.getBytes().length];
 				numberBytes-=tempData.length;
 			}
@@ -129,7 +130,7 @@ public class Client {
 				
 			
 			readFile.read(tempData);
-			
+
 			
 			
 			//criat array das cenas a enviar
@@ -145,6 +146,7 @@ public class Client {
 		//	System.in.read();
 			TimeUnit.MILLISECONDS.sleep(100);
 		}
+
 		System.out.println("Ending Sending chunks! \n \n");
 		System.out.println(chunkNO);
 		
