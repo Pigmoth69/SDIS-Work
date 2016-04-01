@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import database.Info;
+
 public class Peer {
 	private static Connection MC;
 	private static Connection MDB;
@@ -13,7 +15,16 @@ public class Peer {
 	private static String MDBaddr;
 	private static String MDRaddr;
 	private String senderId;
+	private Info info;
 	
+	public Info getInfo() {
+		return info;
+	}
+
+	public void setInfo(Info info) {
+		this.info = info;
+	}
+
 	public String getSenderId() {
 		return senderId;
 	}

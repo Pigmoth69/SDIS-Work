@@ -13,9 +13,9 @@ public class testDB {
 		if (args[0].equals("0")){
 			HashSet<String> peers = new HashSet<String>();
 			ArrayList<Chunk> ChunksSaved = new ArrayList<Chunk>();
-			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 1, 3, peers));
-			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 2, 3, peers));
-			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 3, 3, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 1, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 2, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 3, peers));
 			
 			Info info = new Info(5000, 50, ChunksSaved);
 			Serial s = new Serial(info);
