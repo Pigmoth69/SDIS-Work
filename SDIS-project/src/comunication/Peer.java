@@ -90,6 +90,7 @@ public class Peer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//info = new Info()
 		System.out.println("Iniciei as threads do PEER!!");
 		MCThread = new ChannelThreads(this, "MC");
 		MDBThread = new ChannelThreads(this, "MDB");

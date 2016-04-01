@@ -51,7 +51,6 @@ public class Serial{
 	         return;
 	      }catch(ClassNotFoundException c)
 	      {
-	         System.out.println("Employee class not found");
 	         c.printStackTrace();
 	         return;
 	      }
