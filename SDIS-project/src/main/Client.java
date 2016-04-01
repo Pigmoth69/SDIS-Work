@@ -112,14 +112,20 @@ public class Client {
 			peerID = InetAddress.getLocalHost().getHostName();
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			
-			if(numberBytes >= 64000)
-				 tempData = new byte[64000-send.getBytes().length];
-			else{
-				if(numberBytes >=send.getBytes().length)
-					tempData = new byte[numberBytes-send.getBytes().length];
-				else
-					tempData = new byte[numberBytes];
+			if(numberBytes >= 64000){
+				tempData = new byte[64000-send.getBytes().length];
+				numberBytes-=tempData.length;
 			}
+			else if(numberBytes >=send.getBytes().length){
+				tempData = new byte[numberBytes-send.getBytes().length];
+				numberBytes-=tempData.length;
+			}
+			else{
+				tempData = new byte[numberBytes];
+				numberBytes-=numberBytes;
+			}
+				
+			
 				
 			
 			readFile.read(tempData);
@@ -135,7 +141,6 @@ public class Client {
 			con.send(sendAll);
 			//System.in.read();
 			chunkNO++;
-			numberBytes-= tempData.length;
 			//faz o wait			
 		//	System.in.read();
 			TimeUnit.MILLISECONDS.sleep(100);
