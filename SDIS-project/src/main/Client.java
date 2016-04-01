@@ -122,7 +122,7 @@ public class Client {
 			}
 			else{
 				tempData = new byte[numberBytes];
-				numberBytes-=numberBytes;
+				numberBytes=0;
 			}
 				
 			
