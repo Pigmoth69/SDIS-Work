@@ -1,8 +1,14 @@
 package comunication;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Random;
 
+import sun.security.pkcs11.wrapper.CK_AES_CTR_PARAMS;
+import main.Chunk;
+import database.Info;
 import MessageHandling.ChunkMessage;
 import MessageHandling.DeleteMessage;
 import MessageHandling.GetChunkMessage;
@@ -63,6 +69,7 @@ public class messageHandling extends Thread{
 	
 	private void handPUTCHUNK(){
 		PutChunkMessage put = (PutChunkMessage)msg;
+		
 		//System.out.println("IDS: " + put.getSenderId().getId() + " -> " + peer.getSenderId());
 		if (sentByMe(put.getSenderId().getId(), put.getType())){
 			return;
@@ -70,14 +77,22 @@ public class messageHandling extends Thread{
 		
 		
 		put.doIt();
+		
+		Info info = peer.getInfo();
+		Hashtable<String, Integer> FileRep = info.getFileRep();
+		Integer RepDeg = FileRep.get(new String(put.getFileId()));
+		if (RepDeg == null){
+			FileRep.put(new String(put.getFileId()), put.getReplicationDeg());
+		}
 		//System.out.println("creating stored msg");
 		StoredMessage sto = new StoredMessage(put.getMessageVersion(), new SenderId(peer.getSenderId()) ,put.getFileId(), put.getChunkNo());
 		Connection con = peer.getMC();
 		try {
-			//System.out.println("sending stored msg");
-			Thread.sleep(50);
+			Random generator = new Random();
+	        int number = generator.nextInt(400);
+			Thread.sleep(number);
+			
 			con.send(sto.toString().getBytes());
-			//System.out.println("sent stored msg");
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -86,8 +101,21 @@ public class messageHandling extends Thread{
 	private void handSTORED(){
 		StoredMessage sto = (StoredMessage)msg;		
 		
-		if (sentByMe(sto.getSenderId().getId(), sto.getType())){
-			return;
+		Info info = peer.getInfo();
+		int chunkSavedId = info.getChunkIndex(sto.getFileId(), sto.getChunkNo());
+		if (chunkSavedId != -1){
+			//Se já existir o chunk gravado
+			ArrayList<Chunk> ckSaved = info.getChunksSaved();
+			Chunk ck = ckSaved.get(chunkSavedId);
+			ck.addPeer(sto.getSenderId().getId());
+		}
+		else{
+			//Se não adiciona o chunk à lista
+			ArrayList<Chunk> ckSaved = info.getChunksSaved();
+			HashSet<String> peers = new HashSet<String>();
+			peers.add(sto.getSenderId().getId());
+			Chunk ck = new Chunk(sto.getFileId(), sto.getChunkNo(), peers);
+			ckSaved.add(ck);
 		}
 	}
 	

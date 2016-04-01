@@ -135,7 +135,7 @@ public class Client {
 			con.send(sendAll);
 			//System.in.read();
 			chunkNO++;
-			numberBytes= numberBytes-64000;
+			numberBytes-= tempData.length;
 			//faz o wait			
 		//	System.in.read();
 			TimeUnit.MILLISECONDS.sleep(100);
