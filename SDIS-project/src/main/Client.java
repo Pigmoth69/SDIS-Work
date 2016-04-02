@@ -77,6 +77,7 @@ public class Client {
 			case "DELETE":
 				if(checkDelete(args[2])&& args.length == 3){
 					System.out.println("OK");
+					startPeer();
 					startDelete(peer_access_point,sub_protocol,args[2]);
 				}
 				else
@@ -184,6 +185,8 @@ public class Client {
         byte[] digest = md.digest();
         String fileId = DatatypeConverter.printHexBinary(digest);
         String sendData = new String("DELETE "+1.0+" "+peer_access_point+" "+fileId+ " "+CLRF+CLRF);
+        System.out.println(sendData);
+        System.out.println(con_MC);
         con_MC.send(sendData.getBytes());
 		
 	}
