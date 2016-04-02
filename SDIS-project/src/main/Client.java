@@ -127,9 +127,6 @@ public class Client {
         
         System.out.println("Tamanho: "+numberBytes);
         
-        MessageSubject subj = peer.getSubj();
-    	putchunkObserver putObs = new putchunkObserver(subj);
-    	subj.setType("PUTCHUNK");
        
 		while(numberBytes != -1){
 			
