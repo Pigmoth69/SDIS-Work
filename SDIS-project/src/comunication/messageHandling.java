@@ -1,5 +1,6 @@
 package comunication;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import MessageHandling.PutChunkMessage;
 import MessageHandling.RemovedMessage;
 import MessageHandling.StoredMessage;
 import Protocol.SenderId;
+import Protocol.Version;
 
 public class messageHandling extends Thread{
 	private Thread t;
@@ -134,6 +136,10 @@ public class messageHandling extends Thread{
 	private void handGETCHUNK(){
 		GetChunkMessage gt = (GetChunkMessage)msg;
 		
+		MessageSubject subj = peer.getSubj();
+    	getchunkObserver getObs = new getchunkObserver(subj);
+    	subj.setType("GETCHUNK");
+		
 		if (sentByMe(gt.getSenderId().getId(), gt.getType())){
 			return;
 		}
@@ -147,7 +153,8 @@ public class messageHandling extends Thread{
 		        int number = generator.nextInt(400);
 				Thread.sleep(number);
 				
-				con.send(ch.toString().getBytes());
+				if (getObs.getResponses() == 0)
+					con.send(ch.toString().getBytes());
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -156,6 +163,9 @@ public class messageHandling extends Thread{
 	
 	private void handCHUNK(){
 		ChunkMessage ch = (ChunkMessage)msg;
+		
+		MessageSubject subj = peer.getSubj();
+		subj.setNewType("CHUNK");
 		
 		if (sentByMe(ch.getSenderId().getId(), ch.getType())){
 			return;
@@ -185,6 +195,23 @@ public class messageHandling extends Thread{
 		if (ckId != -1){
 			Chunk ck = info.getChunksSaved().get(ckId);
 			ck.removePeer(rm.getSenderId().getId());
+			int repDeg = ck.getPeers().size();
+			Hashtable<String, Integer> fileRep = info.getFileRep();
+			int minRep = fileRep.get(ck.getFileId());
+			
+			if (repDeg < minRep){
+				File ChunkDir = new File("Chunks");
+				if (!(ChunkDir.exists() && ChunkDir.isDirectory())) 
+					return;
+				File FileDir = new File("Chunks//" + rm.getFileId());
+				if (!(FileDir.exists() && FileDir.isDirectory())) 
+					return;
+				File currentFile = new File("Chunks//" + rm.getFileId() + "//" + rm.getChunkNo() + ".chk");
+				if (currentFile.exists()){
+					System.out.println("iniciar o subprotocolo de backup aqui.");
+					//PutChunkMessage put = new PutChunkMessage(rm.getMessageVersion(), peer.getSenderId(),rm.getFileId(), rm.getChunkNo(), repDeg, );
+				}	
+			}
 		}
 	}
 	

@@ -19,7 +19,7 @@ public class getchunkObserver extends Observer{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		if (subj.getType().equals("PUTCHUNK") && subj.getNewType().equals("STORED")){
+		if (subj.getType().equals("GETCHUNK") && subj.getNewType().equals("CHUNK")){
 			this.responses++;
 		}
 	}
