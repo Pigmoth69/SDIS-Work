@@ -8,16 +8,14 @@ import database.Info;
 import database.Serial;
 
 public class Peer {
-	private static Connection MC;
-	private static Connection MDB;
-	private static Connection MDR;
+	private static Connection MC, MDB, MDR;
 	private static ChannelThreads MCThread, MDBThread, MDRThread;
-	private static String MCaddr;
-	private static String MDBaddr;
-	private static String MDRaddr;
+	private static String MCaddr, MDBaddr, MDRaddr;
 	private String senderId;
 	private Info info;
 	private Serial serial;
+	private MessageSubject subj;
+	
 	
 	public Serial getSerial() {
 		return serial;
