@@ -19,6 +19,14 @@ public class Peer {
 	private Info info;
 	private Serial serial;
 	
+	public Serial getSerial() {
+		return serial;
+	}
+
+	public void setSerial(Serial serial) {
+		this.serial = serial;
+	}
+
 	public Info getInfo() {
 		return info;
 	}
@@ -74,19 +82,17 @@ public class Peer {
 		MCport = Integer.parseInt(args[1]);
 		MDBport = Integer.parseInt(args[3]);
 		MDRport = Integer.parseInt(args[5]);
-		try {
-			senderId = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		}
+		
+			
+		senderId = args[6];
 		
 		
 		try{
-			System.out.println("Iniciei as connections!!");
+			//System.out.println("Iniciei as connections!!");
 			MC = new Connection(MCaddr, MCport);
 			MDB = new Connection(MDBaddr, MDBport);
 			MDR = new Connection(MDRaddr, MDRport);
-			System.out.println("Connections já iniciadas!!");
+			System.out.println("Peer connected");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

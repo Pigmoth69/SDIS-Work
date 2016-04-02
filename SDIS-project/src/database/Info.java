@@ -2,6 +2,7 @@ package database;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -55,8 +56,9 @@ public class Info implements Serializable{
 
 	public int getChunkIndex(char[] fileId, int chunkNo){
 		Chunk ck;
-		for (int i = 0; i < ChunksSaved.size(); i++){
-			ck = ChunksSaved.get(i);
+		
+		for (int i = 0; i < this.ChunksSaved.size(); i++){
+			ck = this.ChunksSaved.get(i);
 			if (ck.getFileId().equals(fileId) && ck.getChunkNo() == chunkNo){
 				return i;
 			}
@@ -72,9 +74,11 @@ public class Info implements Serializable{
 	}
 	
 	public Info(){
-		this.TotalMemory = 5000;
+		this.TotalMemory = 40000;
 		this.UsedMemory = 0;
 		this.ChunksSaved = new ArrayList<Chunk>();
 		this.FileRep = new Hashtable<String, Integer>();
+
+		Collections.synchronizedList(this.ChunksSaved);
 	}
 }

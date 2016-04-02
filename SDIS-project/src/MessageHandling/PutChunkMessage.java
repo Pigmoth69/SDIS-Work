@@ -11,9 +11,15 @@ import Protocol.Version;
 import main.Chunk;
 
 public class PutChunkMessage extends Message{
+	
 	Version messageVersion;
 	SenderId senderId;
 	char[] fileId;
+	int chunkNo;
+	int replicationDeg;
+	byte[] bytes;
+	
+	
 	public Version getMessageVersion() {
 		return messageVersion;
 	}
@@ -50,10 +56,6 @@ public class PutChunkMessage extends Message{
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
 	}
-
-	int chunkNo;
-	int replicationDeg;
-	byte[] bytes;
 	
 	public PutChunkMessage(Version messageVersion, SenderId senderId,
 			char[] fileId, int chunkNo, int replicationDeg, byte[] bytes) {
@@ -69,7 +71,7 @@ public class PutChunkMessage extends Message{
 	public void doIt(){
 		File ChunkDir = new File("Chunks");
 		if (!(ChunkDir.exists() && ChunkDir.isDirectory())) {
-			System.out.println("Creating chunks directory");
+			//System.out.println("Creating chunks directory");
 			ChunkDir.mkdir();
 		}
 		File FileDir = new File("Chunks//" + new String(this.fileId));
@@ -78,14 +80,11 @@ public class PutChunkMessage extends Message{
 			FileDir.mkdirs();
 		}
 		try {
-			System.out.println("Writing Chunk file with size: " + bytes.length);
+			System.out.println("Creating Chunk file with size: " + bytes.length);
 			OutputStream os = new FileOutputStream("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
 			
 			
 			os.write(bytes,0,bytes.length);
-			/*for(int x=0; x < bytes.length ; x++){
-			   os.write( bytes[x] ); // writes the bytes
-			}*/
 			os.close();
 			//Chunk ck = new Chunk(this.fileId, this.chunkNo, this.replicationDeg);
 		} catch (FileNotFoundException e) {

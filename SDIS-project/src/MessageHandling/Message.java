@@ -35,9 +35,9 @@ public class Message {
 	public static Message parseMessage(byte[] data){
 		String dataString = new String(data);
 		String[] dataArgs = dataString.split(CRLF+CRLF); //separates the message into header [0] and body [1] OMG... FDS faltava a merda de um " " para qe funcionasse -.-
-		System.out.println("Args");
-		System.out.println(dataArgs.length);
-		System.out.println(dataArgs[0]);
+		//System.out.println("Args");
+		//System.out.println(dataArgs.length);
+		//System.out.println(dataArgs[0]);
 		String[] inputHeaders = dataArgs[0].split(CRLF);  //only the header at[0] will be processed and the other are considered erroneous
 		String[] header = inputHeaders[0].split("\\s+"); //separates all header parts
 		

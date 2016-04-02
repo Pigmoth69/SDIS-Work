@@ -22,7 +22,7 @@ public class Serial{
 		this.info = info;
 	}
 
-	public void Save(String path){
+	public synchronized void Save(String path){
 		try
 	      {
 	         FileOutputStream fileOut = new FileOutputStream(path);
@@ -30,14 +30,14 @@ public class Serial{
 	         out.writeObject(this.info);
 	         out.close();
 	         fileOut.close();
-	         System.out.printf("Serialized data is saved in " + path);
+	         System.out.println("Serialized data is saved in " + path);
 	      }catch(IOException i)
 	      {
 	          i.printStackTrace();
 	      }
 	}
 	
-	public boolean Load(String path){
+	public synchronized boolean Load(String path){
 		try
 	      {
 	         FileInputStream fileIn = new FileInputStream(path);

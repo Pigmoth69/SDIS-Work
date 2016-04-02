@@ -17,9 +17,9 @@ public class testDB {
 			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 2, peers));
 			ChunksSaved.add(new Chunk("ABCDGFJA111".toCharArray(), 3, peers));
 			
-			Info info = new Info(5000, 50, ChunksSaved);
-			Serial s = new Serial(info);
-			s.Save("database/info.db");
+			//Info info = new Info(5000, 50, ChunksSaved);
+			//Serial s = new Serial(info);
+			//s.Save("database/info.db");
 		}
 		else{
 			Serial s = new Serial();

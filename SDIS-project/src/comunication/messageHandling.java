@@ -9,6 +9,7 @@ import java.util.Random;
 import sun.security.pkcs11.wrapper.CK_AES_CTR_PARAMS;
 import main.Chunk;
 import database.Info;
+import database.Serial;
 import MessageHandling.ChunkMessage;
 import MessageHandling.DeleteMessage;
 import MessageHandling.GetChunkMessage;
@@ -75,16 +76,20 @@ public class messageHandling extends Thread{
 			return;
 		}
 		
-		
 		put.doIt();
 		
 		Info info = peer.getInfo();
 		Hashtable<String, Integer> FileRep = info.getFileRep();
-		Integer RepDeg = FileRep.get(new String(put.getFileId()));
-		if (RepDeg == null){
-			FileRep.put(new String(put.getFileId()), put.getReplicationDeg());
-		}
-		//System.out.println("creating stored msg");
+		
+		FileRep.put(new String(put.getFileId()), put.getReplicationDeg());
+		
+		Serial serial = peer.getSerial();
+		serial.Save("database/info.db");
+		
+		
+		
+		
+		
 		StoredMessage sto = new StoredMessage(put.getMessageVersion(), new SenderId(peer.getSenderId()) ,put.getFileId(), put.getChunkNo());
 		Connection con = peer.getMC();
 		try {
@@ -117,6 +122,9 @@ public class messageHandling extends Thread{
 			Chunk ck = new Chunk(sto.getFileId(), sto.getChunkNo(), peers);
 			ckSaved.add(ck);
 		}
+		
+		Serial serial = peer.getSerial();
+		serial.Save("database/info.db");
 	}
 	
 	private void handGETCHUNK(){
@@ -148,6 +156,8 @@ public class messageHandling extends Thread{
 		if (sentByMe(ch.getSenderId().getId(), ch.getType())){
 			return;
 		}
+		
+		Info info = peer.getInfo();
 	}
 	
 	private void handDELETE(){
