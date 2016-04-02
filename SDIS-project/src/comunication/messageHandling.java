@@ -81,7 +81,8 @@ public class messageHandling extends Thread{
 		Info info = peer.getInfo();
 		Hashtable<String, Integer> FileRep = info.getFileRep();
 		
-		FileRep.put(new String(put.getFileId()), put.getReplicationDeg());
+		
+		FileRep.put(put.getFileId(), put.getReplicationDeg());
 		
 		Serial serial = peer.getSerial();
 		serial.Save("database/info.db");

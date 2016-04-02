@@ -9,11 +9,11 @@ public class Chunk implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	int chunkNo;
-	char[] fileId;
+	String fileId;
 	HashSet<String> peers = new HashSet<String>();
 
 
-	public Chunk(char[] fileId, int chunkNo, HashSet<String> peers){
+	public Chunk(String fileId, int chunkNo, HashSet<String> peers){
 		this.fileId = fileId;
 		this.chunkNo = chunkNo;
 		this.peers = peers;
@@ -59,11 +59,11 @@ public class Chunk implements Serializable{
 		this.chunkNo = chunkNo;
 	}
 
-	public char[] getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(char[] fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 

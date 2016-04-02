@@ -14,7 +14,7 @@ public class PutChunkMessage extends Message{
 	
 	Version messageVersion;
 	SenderId senderId;
-	char[] fileId;
+	String fileId;
 	int chunkNo;
 	int replicationDeg;
 	byte[] bytes;
@@ -32,10 +32,10 @@ public class PutChunkMessage extends Message{
 	public void setSenderId(SenderId senderId) {
 		this.senderId = senderId;
 	}
-	public char[] getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
-	public void setFileId(char[] fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 	public int getChunkNo() {
@@ -58,7 +58,7 @@ public class PutChunkMessage extends Message{
 	}
 	
 	public PutChunkMessage(Version messageVersion, SenderId senderId,
-			char[] fileId, int chunkNo, int replicationDeg, byte[] bytes) {
+			String fileId, int chunkNo, int replicationDeg, byte[] bytes) {
 		this.messageVersion = messageVersion;
 		this.senderId = senderId;
 		this.fileId = fileId;

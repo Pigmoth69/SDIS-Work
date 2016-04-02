@@ -14,7 +14,7 @@ public class Peer {
 	private String senderId;
 	private Info info;
 	private Serial serial;
-	private MessageSubject subj;
+	private MessageSubject subj = new MessageSubject();
 	
 	
 	public Serial getSerial() {

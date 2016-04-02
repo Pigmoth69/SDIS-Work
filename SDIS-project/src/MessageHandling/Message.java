@@ -86,7 +86,7 @@ public class Message {
 		
 		SenderId senderId = new SenderId(header[2]);
 		
-		char[] fileId = header[3].toCharArray();
+		String fileId = header[3];
 		
 		int chunkNo = Integer.parseInt(header[4]);
 		
@@ -106,7 +106,7 @@ public class Message {
 		
 		SenderId senderId = new SenderId(header[2]);
 		
-		char[] fileId = header[3].toCharArray();
+		String fileId = header[3];
 		int chunkNo = Integer.parseInt(header[4]);
 		
 		return new StoredMessage(messageVersion, senderId, fileId, chunkNo);
@@ -122,7 +122,7 @@ public class Message {
 		
 		SenderId senderId = new SenderId(header[2]);
 		
-		char[] fileId = header[3].toCharArray();
+		String fileId = header[3];
 		int chunkNo = Integer.parseInt(header[4]);
 		
 		return new GetChunkMessage(messageVersion, senderId, fileId, chunkNo);
@@ -139,7 +139,7 @@ public class Message {
 		
 		SenderId senderId = new SenderId(header[2]);
 		
-		char[] fileId = header[3].toCharArray();
+		String fileId = header[3];
 		
 		int chunkNo = Integer.parseInt(header[4]);
 		
@@ -156,7 +156,7 @@ public class Message {
 		
 		SenderId senderId = new SenderId(header[2]);
 		
-		char[] fileId = header[3].toCharArray();
+		String fileId = header[3];
 		
 		return new DeleteMessage(messageVersion, senderId, fileId);
 	}
@@ -171,7 +171,7 @@ public class Message {
 		
 		SenderId senderId = new SenderId(header[2]);
 		
-		char[] fileId = header[3].toCharArray();
+		String fileId = header[3];
 		
 		int chunkNo = Integer.parseInt(header[4]);
 		

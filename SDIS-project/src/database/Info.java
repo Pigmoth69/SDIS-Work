@@ -54,7 +54,7 @@ public class Info implements Serializable{
 		this.ChunksSaved.add(ck);
 	}
 
-	public int getChunkIndex(char[] fileId, int chunkNo){
+	public int getChunkIndex(String fileId, int chunkNo){
 		Chunk ck;
 		
 		for (int i = 0; i < this.ChunksSaved.size(); i++){

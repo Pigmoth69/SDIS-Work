@@ -6,12 +6,12 @@ import Protocol.Version;
 public class ChunkMessage extends Message{
 	Version messageVersion; 
 	SenderId senderId;
-	char[] fileId;
+	String fileId;
 	int chunkNo;
 	byte[] bytes;
 
 	public ChunkMessage(Version messageVersion, SenderId senderId,
-			char[] fileId, int chunkNo, byte[] bytes) {
+			String fileId, int chunkNo, byte[] bytes) {
 		this.messageVersion = messageVersion;
 		this.senderId = senderId;
 		this.fileId = fileId;
@@ -36,11 +36,11 @@ public class ChunkMessage extends Message{
 		this.senderId = senderId;
 	}
 
-	public char[] getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(char[] fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 

@@ -8,10 +8,10 @@ import Protocol.Version;
 public class DeleteMessage  extends Message{
 	Version messageVersion;
 	SenderId senderId;
-	char[] fileId;
+	String fileId;
 
 	public DeleteMessage(Version messageVersion, SenderId senderId,
-			char[] fileId) {
+			String fileId) {
 		this.messageVersion = messageVersion;
 		this.senderId = senderId;
 		this.fileId = fileId;
@@ -34,11 +34,11 @@ public class DeleteMessage  extends Message{
 		this.senderId = senderId;
 	}
 
-	public char[] getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(char[] fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 

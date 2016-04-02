@@ -14,11 +14,11 @@ import Protocol.Version;
 public class GetChunkMessage  extends Message{
 	Version messageVersion;
 	SenderId senderId;
-	char[] fileId;
+	String fileId;
 	int chunkNo;
 
 	public GetChunkMessage(Version messageVersion, SenderId senderId,
-			char[] fileId, int chunkNo) {
+			String fileId, int chunkNo) {
 		this.messageVersion = messageVersion;
 		this.senderId = senderId;
 		this.fileId = fileId;
@@ -83,11 +83,11 @@ public class GetChunkMessage  extends Message{
 		this.senderId = senderId;
 	}
 
-	public char[] getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(char[] fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 

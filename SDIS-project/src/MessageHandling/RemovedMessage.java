@@ -22,11 +22,11 @@ public class RemovedMessage  extends Message{
 		this.senderId = senderId;
 	}
 
-	public char[] getFileId() {
+	public String getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(char[] fileId) {
+	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
 
@@ -38,11 +38,11 @@ public class RemovedMessage  extends Message{
 		this.chunkNo = chunkNo;
 	}
 
-	char[] fileId;
+	String fileId;
 	int chunkNo;
 	
 	public RemovedMessage(Version messageVersion, SenderId senderId,
-			char[] fileId, int chunkNo) {
+			String fileId, int chunkNo) {
 		this.messageVersion = messageVersion;
 		this.senderId = senderId;
 		this.fileId = fileId;
