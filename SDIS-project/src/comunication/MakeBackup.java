@@ -27,8 +27,10 @@ public class MakeBackup extends Thread{
 	
 	public void run() {
 		try {
-			
 			for(int i = 1 ; i <= 5 ; i++){
+				System.out.println("Repostas Antes: "+putObs.getResponses());
+				putObs.setResponses(0);
+				System.out.println("Repostas Depois: "+putObs.getResponses());
 				c.send(sendData);
 				Thread.sleep(i*1000);
 				if(putObs.getResponses() >= repDegree)
