@@ -24,4 +24,14 @@ public class ChunkId {
 	public void setChunkNo(int chunkNo) {
 		this.chunkNo = chunkNo;
 	}
+	
+	@Override
+	public boolean equals(Object e){
+		ChunkId ck = (ChunkId) e;
+		if (this.fileId.equals(ck.getFileId()) && this.chunkNo == ck.getChunkNo()){
+			return true;
+		}
+		else
+			return false;
+	}
 }
