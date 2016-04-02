@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +27,7 @@ import comunication.putchunkObserver;
 public class Client {
 	
 	
+	private static final String CLRF = "\r\n";
 	static Peer peer;
 	static ChannelThreads MC;
 	static ChannelThreads MDB;
@@ -67,7 +69,7 @@ public class Client {
 			case "RESTORE":
 				if(checkRestore(args[2]) && args.length == 3){
 					System.out.println("OK");
-					//handleSubProtocol(peer_access_point,sub_protocol,args[2]);
+					startRestore(peer_access_point,sub_protocol,args[2]);
 				}	
 				else
 					System.out.println("Invalid <sub_protocol>");
@@ -75,7 +77,7 @@ public class Client {
 			case "DELETE":
 				if(checkDelete(args[2])&& args.length == 3){
 					System.out.println("OK");
-					//handleSubProtocol(peer_access_point,sub_protocol,args[2]);
+					startDelete(peer_access_point,sub_protocol,args[2]);
 				}
 				else
 					System.out.println("Invalid <sub_protocol>");
@@ -118,7 +120,7 @@ public class Client {
 		
 		int chunkNO = 1;
 		byte[] tempData;
-		String hash = filename+sub_protocol+peer_access_point+replication;
+		String hash = filename+peer_access_point;
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
@@ -167,7 +169,6 @@ public class Client {
 			
 			chunkNO++;
 			
-			TimeUnit.MILLISECONDS.sleep(100);
 		}
 
 		System.out.println("Ending Sending chunks! \n \n");
@@ -176,17 +177,25 @@ public class Client {
         
 		
 	}
-
+	public static void startDelete(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException{
+		String hash = filename+peer_access_point;
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        String fileId = DatatypeConverter.printHexBinary(digest);
+        String sendData = new String("DELETE "+1.0+" "+peer_access_point+" "+fileId+ " "+CLRF+CLRF);
+        con_MC.send(sendData.getBytes());
+		
+	}
+	
 	public static void handleSubProtocol(int peer_access_point,String sub_protocol, String filename,int replication){
 		//TODO fazer o handler
 		System.out.println("peer_access_point: "+ peer_access_point);
 		System.out.println("sub_protocol: "+ sub_protocol);
-		System.out.println("filename: "+ filename);
 		System.out.println("replication: "+ replication);
 		
 	}
-	public static void handleSubProtocol(int peer_access_point,String sub_protocol, String filename){
-		//TODO fazer o handler
+	public static void startRestore(int peer_access_point,String sub_protocol, String filename){
 		System.out.println("peer_access_point: "+ peer_access_point);
 		System.out.println("sub_protocol: "+ sub_protocol);
 		System.out.println("filename: "+ filename);
