@@ -14,7 +14,7 @@ public class Peer {
 	private String senderId;
 	private Info info;
 	private Serial serial;
-	private MessageSubject subj = new MessageSubject();
+	private MessageSubject subj;
 	
 	
 	public Serial getSerial() {
@@ -103,6 +103,8 @@ public class Peer {
 		if (loaded){
 			info = serial.getInfo();
 		}
+		
+		subj = new MessageSubject();
 		
 		
 		System.out.println("Iniciei as threads do PEER!!");
