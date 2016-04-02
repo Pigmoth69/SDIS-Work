@@ -24,7 +24,12 @@ public class Client {
 	
 	static Peer peer;
 	static ChannelThreads MC;
-	static Connection con;
+	static ChannelThreads MDB;
+	static ChannelThreads MDR;
+	static Connection con_MC;
+	static Connection con_MDB;
+	static Connection con_MDR;
+	
 	//static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
 	static String param[] = {"224.0.0.19", "10001", "224.1.0.2", "10002", "224.1.0.3", "10003", "64"};
 	
@@ -83,11 +88,22 @@ public class Client {
 		}
 			
 	}
+	//END OF MAIN FUNCTION
+	
 	private static void startPeer(){
 		peer = new Peer(param);
+		
 		MC = peer.getMCThread();
+		MDB = peer.getMDBThread();
+		MDR = peer.getMDRThread();
+		
 		MC.start();
-		con = peer.getMC();
+		MDB.start();
+		MDR.start();
+		
+		con_MC = peer.getMC();
+		con_MDB = peer.getMDB();
+		con_MDR = peer.getMDR();
 	}
 	private static void startBackup(int peer_access_point, String sub_protocol, String filename, int replication) throws IOException, NoSuchAlgorithmException, InterruptedException {
 		File file = new File(filename);
@@ -108,13 +124,17 @@ public class Client {
         
         System.out.println("Tamanho: "+numberBytes);
        
-		while(numberBytes > 0){
+		while(numberBytes != -1){
 			
 			String peerID;
 			peerID = "80808";
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			
-			if(numberBytes >= 64000){
+			if(numberBytes == 0){
+				tempData = new byte[0];
+				numberBytes=-1;
+			}
+			else if(numberBytes >= 64000){
 				tempData = new byte[64000-send.getBytes().length];
 				numberBytes-=tempData.length;
 			}
@@ -124,7 +144,7 @@ public class Client {
 			}
 			else{
 				tempData = new byte[numberBytes];
-				numberBytes=0;
+				numberBytes=-1;
 			}
 				
 			
@@ -132,19 +152,12 @@ public class Client {
 			
 			readFile.read(tempData);
 
-			
-			
-			//criat array das cenas a enviar
 			byte[] sendAll = new byte[send.getBytes().length+tempData.length];
-			//fazer a copy do send para o sendAll
 			System.arraycopy(send.getBytes(), 0, sendAll, 0, send.getBytes().length);
-			//fazer a copy do tempdata para o sendAll
 			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
-			con.send(sendAll);
-			//System.in.read();
+			con_MDB.send(sendAll);
 			chunkNO++;
-			//faz o wait			
-		//	System.in.read();
+			
 			TimeUnit.MILLISECONDS.sleep(100);
 		}
 
