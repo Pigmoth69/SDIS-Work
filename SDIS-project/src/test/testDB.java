@@ -14,12 +14,22 @@ public class testDB {
 			HashSet<String> peers = new HashSet<String>();
 			ArrayList<Chunk> ChunksSaved = new ArrayList<Chunk>();
 			ChunksSaved.add(new Chunk("ABCDGFJA111", 1, peers));
-			ChunksSaved.add(new Chunk("ABCDGFJA111", 2, peers));
-			ChunksSaved.add(new Chunk("ABCDGFJA111", 3, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA222", 2, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA333", 3, peers));
 			
-			//Info info = new Info(5000, 50, ChunksSaved);
-			//Serial s = new Serial(info);
-			//s.Save("database/info.db");
+			Info info = new Info(5000, 50, ChunksSaved, null);
+			Serial s = new Serial(info);
+			s.Save("database/info.db");
+		}else if(args[0].equals("1")){
+			HashSet<String> peers = new HashSet<String>();
+			ArrayList<Chunk> ChunksSaved = new ArrayList<Chunk>();
+			ChunksSaved.add(new Chunk("ABCDGFJA444", 4, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA555", 5, peers));
+			ChunksSaved.add(new Chunk("ABCDGFJA666", 6, peers));
+			
+			Info info = new Info(5000, 50, ChunksSaved, null);
+			Serial s = new Serial(info);
+			s.Save("database/info.db");
 		}
 		else{
 			Serial s = new Serial();
@@ -27,8 +37,10 @@ public class testDB {
 			
 			Info info = s.getInfo();
 			
-			Chunk ck = info.getChunksSaved().get(1);
-			System.out.println(new String(ck.getFileId()) + " -> " + ck.getChunkNo());
+			Chunk ck1 = info.getChunksSaved().get(2);
+			System.out.println(new String(ck1.getFileId()) + " -> " + ck1.getChunkNo());
+			Chunk ck2 = info.getChunksSaved().get(3);
+			System.out.println(new String(ck2.getFileId()) + " -> " + ck2.getChunkNo());
 		}
 		
 	}

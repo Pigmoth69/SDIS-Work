@@ -38,8 +38,7 @@ public class Serial{
 	}
 	
 	public synchronized boolean Load(String path){
-		try
-	      {
+		try{
 	         FileInputStream fileIn = new FileInputStream(path);
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         this.info = (Info) in.readObject();
@@ -49,8 +48,7 @@ public class Serial{
 	      {
 	         i.printStackTrace();
 	         return false;
-	      }catch(ClassNotFoundException c)
-	      {
+	      }catch(ClassNotFoundException c){
 	         c.printStackTrace();
 	         return false;
 	      }
