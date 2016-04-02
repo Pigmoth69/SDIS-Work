@@ -30,8 +30,8 @@ public class Client {
 	static Connection con_MDB;
 	static Connection con_MDR;
 	
-	//static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
-	static String param[] = {"224.0.0.19", "10001", "224.1.0.2", "10002", "224.1.0.3", "10003", "64"};
+	static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
+	//static String param[] = {"224.0.0.19", "10001", "224.1.0.2", "10002", "224.1.0.3", "10003", "64"};
 	
 	public static void main(String[] args) throws NumberFormatException, IOException, NoSuchAlgorithmException, InterruptedException {
 		if(!checkArgsNum(args))//checks if there is a invalid number of arguments
@@ -127,7 +127,7 @@ public class Client {
 		while(numberBytes != -1){
 			
 			String peerID;
-			peerID = "80808";
+			peerID = param[6];
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			
 			if(numberBytes == 0){
