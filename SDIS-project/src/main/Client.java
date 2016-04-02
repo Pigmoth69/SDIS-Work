@@ -184,14 +184,8 @@ public class Client {
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         String fileId = DatatypeConverter.printHexBinary(digest);
-<<<<<<< HEAD
         String sendData = new String("DELETE "+1.0+" "+peer_access_point+" "+fileId+ " "+"\r\n\r\n");
         System.out.println(sendData);
-=======
-        String sendData = new String("DELETE "+1.0+" "+peer_access_point+" "+fileId+ " "+CLRF+CLRF);
-        System.out.println(sendData);
-        System.out.println(con_MC);
->>>>>>> 1aa830689aca7f957b5beaa41abf660a0ef9e5db
         con_MC.send(sendData.getBytes());
 		
 	}
