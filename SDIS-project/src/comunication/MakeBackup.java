@@ -23,9 +23,9 @@ public class MakeBackup extends Thread{
 		this.repDegree = repDegree;
 		this.threadName = "BackUp Thread";
 		
-		peer.setSubj(new MessageSubject());
+		
 		subj = peer.getSubj();
-     	putObs = new putchunkObserver(subj);
+     	putObs = new putchunkObserver(subj,fileID,chunkNO);
      	subj.setType(type);
 	}
 	
