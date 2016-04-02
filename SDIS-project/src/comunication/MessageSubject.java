@@ -1,14 +1,17 @@
 package comunication;
 
+import java.util.ArrayList;
+
 import Protocol.ChunkId;
 
 public class MessageSubject {
-	private Observer[] observers = new Observer[9];
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	private int totalObs = 0;
 	private String messageType, newType;
 	ChunkId ckId;
 	public void attach( Observer o ) {
-		observers[totalObs++] = o;
+		observers.add(o);
+		totalObs++;
 	}
 	
 	public String getType() {
