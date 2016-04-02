@@ -107,7 +107,11 @@ public class messageHandling extends Thread{
 	}  
 	
 	private void handSTORED(){
-		StoredMessage sto = (StoredMessage)msg;		
+		StoredMessage sto = (StoredMessage)msg;
+		
+		if (sentByMe(sto.getSenderId().getId(), sto.getType())){
+			return;
+		}
 		
 		Info info = peer.getInfo();
 		MessageSubject subj = this.peer.getSubj();
