@@ -1,9 +1,12 @@
 package comunication;
 
+import Protocol.ChunkId;
+
 public class MessageSubject {
 	private Observer[] observers = new Observer[9];
 	private int totalObs = 0;
 	private String messageType, newType;
+	ChunkId ckId;
 	public void attach( Observer o ) {
 		observers[totalObs++] = o;
 	}
@@ -16,9 +19,18 @@ public class MessageSubject {
 		return newType;
 	}
 
-	public void setNewType(String newType) {
+	public void setNewType(String newType, ChunkId ck) {
+		this.ckId = ck;
 		this.newType = newType;
 		notifyAllObservers();
+	}
+
+	public ChunkId getCkId() {
+		return ckId;
+	}
+
+	public void setCkId(ChunkId ckId) {
+		this.ckId = ckId;
 	}
 
 	public void setType( String in ) {

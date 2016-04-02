@@ -1,13 +1,16 @@
 package comunication;
 
+import java.util.Hashtable;
+
+import Protocol.ChunkId;
+
 public class getchunkObserver extends Observer{
-	private int responses = 0;
 	
-	public int getResponses() {
+	public Hashtable<ChunkId, Integer> getResponses() {
 		return responses;
 	}
 
-	public void setResponses(int responses) {
+	public void setResponses(Hashtable<ChunkId, Integer> responses) {
 		this.responses = responses;
 	}
 
@@ -19,8 +22,9 @@ public class getchunkObserver extends Observer{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		if (subj.getType().equals("GETCHUNK") && subj.getNewType().equals("CHUNK")){
-			this.responses++;
+		if (subj.getNewType().equals("CHUNK")){
+			int resp = this.responses.get(subj.getCkId());
+			this.responses.put(subj.getCkId(), resp+1);
 		}
 	}
 }
