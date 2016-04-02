@@ -9,19 +9,25 @@ abstract class Observer {
 	protected MessageSubject subj; 
 	public abstract void update();
 	
-	Hashtable<ChunkId, Integer> responses;
+	ChunkId ckId;
+	int responses;
 	
-	public Hashtable<ChunkId, Integer> getResponses() {
+	public int getResponses() {
 		return responses;
 	}
 
-	public void setResponses(Hashtable<ChunkId, Integer> responses) {
+	public void setResponses(int responses) {
 		this.responses = responses;
 	}
-	
-	public void addChunk(ChunkId ck){
-		this.responses.put(ck, 0);
+
+	public ChunkId getCkId() {
+		return ckId;
 	}
+
+	public void setCkId(ChunkId ckId) {
+		this.ckId = ckId;
+	}
+	
 
 	
 }
