@@ -142,7 +142,7 @@ public class messageHandling extends Thread{
 		GetChunkMessage gt = (GetChunkMessage)msg;
 		
 		MessageSubject subj = peer.getSubj();
-    	getchunkObserver getObs = new getchunkObserver(subj);
+    	getchunkObserver getObs = new getchunkObserver(subj, gt.getFileId(), gt.getChunkNo());
     	subj.setType("GETCHUNK");
 		
 		if (sentByMe(gt.getSenderId().getId(), gt.getType())){
@@ -158,7 +158,7 @@ public class messageHandling extends Thread{
 		        int number = generator.nextInt(400);
 				Thread.sleep(number);
 				
-				if (getObs.getResponses().get(new ChunkId(ch.getFileId(), ch.getChunkNo())) == 0)
+				if (getObs.getResponses() == 0)
 					con.send(ch.toString().getBytes());
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();

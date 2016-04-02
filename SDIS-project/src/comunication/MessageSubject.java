@@ -42,9 +42,9 @@ public class MessageSubject {
 	
 	public void notifyAllObservers(){
 	      for (Observer observer : observers) {
-	    	  System.out.println("Antes:" + observer.getResponses());
+	    	 //System.out.println("Antes:" + observer.getResponses());
 	         observer.update();
-	         System.out.println("Depois:" + observer.getResponses());
+	         //System.out.println("Depois:" + observer.getResponses());
 	      }
 	   } 	
 }
