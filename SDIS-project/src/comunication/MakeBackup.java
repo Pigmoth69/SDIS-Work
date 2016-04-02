@@ -12,11 +12,12 @@ public class MakeBackup extends Thread{
 	private putchunkObserver putObs;
 	private int repDegree; 
    
-	MakeBackup(String type,int repDegree,Peer peer,Connection c, byte[] data){
+	public MakeBackup(String type,int repDegree,Peer peer,Connection c, byte[] data){
 		this.peer = peer;
 		this.c = c;
 		this.sendData = data;
 		this.repDegree = repDegree;
+		this.threadName = "BackUp Thread";
 		
 		subj = peer.getSubj();
      	putObs = new putchunkObserver(subj);
