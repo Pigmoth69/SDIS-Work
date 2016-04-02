@@ -1,7 +1,6 @@
 package comunication;
 
-public class putchunkObserver extends Observer{
-	
+public class getchunkObserver extends Observer{
 	private int responses = 0;
 	
 	public int getResponses() {
@@ -12,7 +11,7 @@ public class putchunkObserver extends Observer{
 		this.responses = responses;
 	}
 
-	public putchunkObserver(MessageSubject s){
+	public getchunkObserver(MessageSubject s){
 		subj = s;
 		subj.attach(this);
 	}

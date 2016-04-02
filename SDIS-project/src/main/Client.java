@@ -18,9 +18,12 @@ import javax.xml.bind.DatatypeConverter;
 
 import comunication.ChannelThreads;
 import comunication.Connection;
+import comunication.MessageSubject;
 import comunication.Peer;
+import comunication.putchunkObserver;
 
 public class Client {
+	
 	
 	static Peer peer;
 	static ChannelThreads MC;
@@ -123,6 +126,10 @@ public class Client {
         int numberBytes = (int) file.length();
         
         System.out.println("Tamanho: "+numberBytes);
+        
+        MessageSubject subj = peer.getSubj();
+    	putchunkObserver putObs = new putchunkObserver(subj);
+    	subj.setType("PUTCHUNK");
        
 		while(numberBytes != -1){
 			
@@ -156,6 +163,7 @@ public class Client {
 			System.arraycopy(send.getBytes(), 0, sendAll, 0, send.getBytes().length);
 			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
 			con_MDB.send(sendAll);
+			
 			chunkNO++;
 			
 			TimeUnit.MILLISECONDS.sleep(100);

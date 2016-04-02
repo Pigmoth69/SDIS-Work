@@ -116,4 +116,12 @@ public class Peer {
 		//MDRThread.start();
 		
 	}
+
+	public MessageSubject getSubj() {
+		return subj;
+	}
+
+	public void setSubj(MessageSubject subj) {
+		this.subj = subj;
+	}
 }

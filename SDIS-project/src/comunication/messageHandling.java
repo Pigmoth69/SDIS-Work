@@ -108,6 +108,9 @@ public class messageHandling extends Thread{
 		StoredMessage sto = (StoredMessage)msg;		
 		
 		Info info = peer.getInfo();
+		MessageSubject subj = this.peer.getSubj();
+		subj.setNewType("STORED");
+		
 		int chunkSavedId = info.getChunkIndex(sto.getFileId(), sto.getChunkNo());
 		if (chunkSavedId != -1){
 			//Se já existir o chunk gravado
