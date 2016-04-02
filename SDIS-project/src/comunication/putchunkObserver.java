@@ -12,8 +12,9 @@ public class putchunkObserver extends Observer{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		if (subj.getType().equals("PUTCHUNK") && subj.getNewType().equals("STORED")){
-			this.responses++;
+		if (subj.getNewType().equals("STORED")){
+			int resp = this.responses.get(subj.getCkId());
+			this.responses.put(subj.getCkId(), resp+1);
 		}
 	}
 }

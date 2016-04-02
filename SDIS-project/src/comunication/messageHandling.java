@@ -18,6 +18,7 @@ import MessageHandling.Message;
 import MessageHandling.PutChunkMessage;
 import MessageHandling.RemovedMessage;
 import MessageHandling.StoredMessage;
+import Protocol.ChunkId;
 import Protocol.SenderId;
 import Protocol.Version;
 
@@ -115,7 +116,7 @@ public class messageHandling extends Thread{
 		
 		Info info = peer.getInfo();
 		MessageSubject subj = this.peer.getSubj();
-		subj.setNewType("STORED");
+		subj.setNewType("STORED", new ChunkId(sto.getFileId(), sto.getChunkNo()));
 		
 		int chunkSavedId = info.getChunkIndex(sto.getFileId(), sto.getChunkNo());
 		if (chunkSavedId != -1){
@@ -157,7 +158,7 @@ public class messageHandling extends Thread{
 		        int number = generator.nextInt(400);
 				Thread.sleep(number);
 				
-				if (getObs.getResponses() == 0)
+				if (getObs.getResponses().get(new ChunkId(ch.getFileId(), ch.getChunkNo())) == 0)
 					con.send(ch.toString().getBytes());
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
@@ -169,7 +170,7 @@ public class messageHandling extends Thread{
 		ChunkMessage ch = (ChunkMessage)msg;
 		
 		MessageSubject subj = peer.getSubj();
-		subj.setNewType("CHUNK");
+		subj.setNewType("CHUNK", new ChunkId(ch.getFileId(), ch.getChunkNo()));
 		
 		if (sentByMe(ch.getSenderId().getId(), ch.getType())){
 			return;
