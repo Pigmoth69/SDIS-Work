@@ -39,7 +39,7 @@ public class MakeBackup extends Thread{
 				c.send(sendData);
 				Thread.sleep(i*1000);
 				if(putObs.getResponses() >= repDegree)
-					this.stop();
+					break;
 				
 			}
 		} catch (IOException e) {
