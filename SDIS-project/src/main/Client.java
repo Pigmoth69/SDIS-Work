@@ -161,7 +161,7 @@ public class Client {
 			System.arraycopy(send.getBytes(), 0, sendAll, 0, send.getBytes().length);
 			System.arraycopy(tempData, 0, sendAll, send.getBytes().length, tempData.length);
 			
-			MakeBackup mb = new MakeBackup("PUTCHUNK", replication, peer, con_MDB, sendAll);
+			MakeBackup mb = new MakeBackup("PUTCHUNK",fileId,chunkNO, replication, peer, con_MDB, sendAll);
 			mb.start();
 			//con_MDB.send(sendAll);
 			
