@@ -43,6 +43,7 @@ public class MakeRestore extends Thread{
 								fileOutput.seek((long)((chunkNO-1)*64000));
 								fileOutput.write(data);
 								}
+								fileOutput.close();
 								flag = false; // to exit cicle
 							}
 						    try {
@@ -50,6 +51,7 @@ public class MakeRestore extends Thread{
 						    } finally {
 						    	isLocked.release();
 						    }
+						    fileOutput.close();
 						}catch(OverlappingFileLockException e){
 							// TODO Auto-generated catch block
 							//e.printStackTrace();
@@ -67,7 +69,12 @@ public class MakeRestore extends Thread{
 							}
 						}
 					}
-					
+					try {
+						fileOutput.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+					}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
