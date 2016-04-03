@@ -133,10 +133,7 @@ public class Message {
 		if(header.length != 5)
 			return null;
 		System.out.println("Tamanho do body: "+body.length);
-		byte[] copy= new byte[body.length-1001];
-		System.arraycopy(body, 1, copy, 0, body.length-1001);
-		System.out.println("Tamanho do copy: "+copy.length);
-		
+
 		String[] versionValues = header[1].split("\\.");
 		Version messageVersion = new Version(Byte.parseByte(versionValues[0]), Byte.parseByte(versionValues[1]));
 		
@@ -146,7 +143,7 @@ public class Message {
 		
 		int chunkNo = Integer.parseInt(header[4]);
 		
-		return new ChunkMessage(messageVersion, senderId, fileId, chunkNo, copy);
+		return new ChunkMessage(messageVersion, senderId, fileId, chunkNo, body);
 	}
 
 	private static DeleteMessage parseDELETE(String[] header) {

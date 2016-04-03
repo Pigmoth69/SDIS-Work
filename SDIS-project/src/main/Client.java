@@ -148,7 +148,7 @@ public class Client {
 			peerID = param[6];
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			
-			/*if(numberBytes == 0){
+			if(numberBytes == 0){
 				tempData = new byte[0];
 			}else if(numberBytes >= 64000){
 				tempData = new byte[64000];
@@ -156,9 +156,9 @@ public class Client {
 			}else{
 				tempData = new byte[numberBytes];
 				numberBytes-=tempData.length;
-			}*/
+			}
 			
-			if(numberBytes == 0){
+			/*if(numberBytes == 0){
 				tempData = new byte[0];
 				numberBytes=-1;
 			}
@@ -173,7 +173,7 @@ public class Client {
 			else{
 				tempData = new byte[numberBytes];
 				numberBytes=-1;
-			}
+			}*/
 				
 			
 				
