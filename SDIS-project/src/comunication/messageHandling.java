@@ -92,6 +92,8 @@ public class messageHandling extends Thread{
 			return;
 		}
 		
+		System.out.println("RECEBI um PUTCHUNK " + put.getChunkNo());
+		
 		put.doIt();
 		
 		Info info = peer.getInfo();
@@ -115,6 +117,7 @@ public class messageHandling extends Thread{
 			Thread.sleep(number);
 			
 			con.send(sto.toString().getBytes());
+			System.out.println("ENVIEI um STORED " + sto.getChunkNo());
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -126,6 +129,8 @@ public class messageHandling extends Thread{
 		if (sentByMe(sto.getSenderId().getId(), sto.getType())){
 			return;
 		}
+		
+		System.out.println("RECEBI um STORED " + sto.getChunkNo());
 		
 		Info info = peer.getInfo();
 		MessageSubject subj = this.peer.getSubj();
@@ -169,6 +174,8 @@ public class messageHandling extends Thread{
 			return;
 		}
 		
+		System.out.println("RECEBI um GETCHUNK " + gt.getChunkNo());
+		
 		ChunkMessage ch = gt.doIt();
 		ch.setSenderId(new SenderId(peer.getSenderId()));
 		if (ch != null){
@@ -184,6 +191,7 @@ public class messageHandling extends Thread{
 					System.arraycopy(ch.toString().getBytes(), 0, copy, 0, ch.toString().getBytes().length);
 					System.arraycopy(ch.getBytes(), 0, copy, ch.toString().getBytes().length, ch.getBytes().length);
 					con.send(copy);
+					System.out.println("ENVIEI um CHUNK " + ch.getChunkNo());
 				}
 					
 				
@@ -203,6 +211,8 @@ public class messageHandling extends Thread{
 		if (sentByMe(ch.getSenderId().getId(), ch.getType())){
 			return;
 		}
+		
+		System.out.println("RECEBI um CHUNK " + ch.getChunkNo());
 		
 		System.out.println(new String(ch.getBytes()).substring(0, 20));
 		
