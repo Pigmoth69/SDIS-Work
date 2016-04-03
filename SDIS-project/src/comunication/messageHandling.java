@@ -163,6 +163,8 @@ public class messageHandling extends Thread{
 				
 				if (getObs.getResponses() == 0)
 					con.send(ch.toString().getBytes());
+				
+				System.out.println(new String(ch.getBytes()).substring(0, 20));
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -178,6 +180,9 @@ public class messageHandling extends Thread{
 		if (sentByMe(ch.getSenderId().getId(), ch.getType())){
 			return;
 		}
+		
+		System.out.println(new String(ch.getBytes()).substring(0, 20));
+		
 		System.out.println("Recebi um chunk!");
 
 		//isto esta hardcoded mas tem de ser mudado
