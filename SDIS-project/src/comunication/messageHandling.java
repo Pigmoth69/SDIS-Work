@@ -58,6 +58,8 @@ public class messageHandling extends Thread{
 				break;
 			default: break; 
 		}
+		
+		this.peer.getSerial().Save("database/info.db");
 	}
 	
 	
@@ -87,8 +89,8 @@ public class messageHandling extends Thread{
 		
 		FileRep.put(put.getFileId(), put.getReplicationDeg());
 		
-		Serial serial = peer.getSerial();
-		serial.Save("database/info.db");
+		//Serial serial = peer.getSerial();
+		//serial.Save("database/info.db");
 		
 		
 		
@@ -134,8 +136,8 @@ public class messageHandling extends Thread{
 			ckSaved.add(ck);
 		}
 		
-		Serial serial = peer.getSerial();
-		serial.Save("database/info.db");
+		//Serial serial = peer.getSerial();
+		//serial.Save("database/info.db");
 	}
 	
 	private void handGETCHUNK(){
