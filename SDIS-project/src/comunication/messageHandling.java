@@ -101,7 +101,7 @@ public class messageHandling extends Thread{
 		Connection con = peer.getMC();
 		try {
 			Random generator = new Random();
-	        int number = generator.nextInt(100);
+	        int number = generator.nextInt(400);
 			Thread.sleep(number);
 			
 			con.send(sto.toString().getBytes());
