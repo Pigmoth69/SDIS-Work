@@ -36,15 +36,17 @@ public class MakeBackup extends Thread{
 				//System.out.println("Repostas Antes: "+putObs.getResponses());
 				putObs.setResponses(0);
 				//System.out.println("Repostas Depois: "+putObs.getResponses());
-				c.send(sendData);
+				try{
+					c.send(sendData);
+				}catch (IOException e) {
+					e.printStackTrace();
+				} 
 				Thread.sleep((int)Math.pow(2, i)*1000);
-				System.out.println("Repostas Recebidas: "+putObs.getResponses() + " RepDegre necess�rio: " + repDegree);
-				if(putObs.getResponses() >= repDegree)
+				System.out.println("Repostas Recebidas: "+(putObs.getResponses()-1) + " RepDegre necessario: " + repDegree);
+				if(putObs.getResponses() - 1 >= repDegree)
 					break;
 				
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
