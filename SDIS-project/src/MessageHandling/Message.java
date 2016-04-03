@@ -164,8 +164,9 @@ public class Message {
 	}
 
 	private static RemovedMessage parseREMOVED(String[] header) {
-		if(header.length != 4)
+		if(header.length != 5){
 			return null;
+		}
 		
 		
 		String[] versionValues = header[1].split("\\.");

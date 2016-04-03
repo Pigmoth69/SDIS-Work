@@ -50,6 +50,7 @@ public class Connection {
         byte[] res = new byte[msgPacket.getLength()];
         System.arraycopy(msgPacket.getData(), 0, res, 0, msgPacket.getLength());
         
+        
         return res;
 	}
 }

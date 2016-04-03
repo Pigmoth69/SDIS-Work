@@ -253,12 +253,16 @@ public class Client {
 					if (rep != 1){
 						File[] chunks = contents[i].listFiles();
 						for(File f : chunks){
+							System.out.println("apagar file " + f.getName() + " with size: " + f.length());
 							freedSpace+=f.length();
 							String name = f.getName();
 							f.delete();
 							
 							String sendData = new String("REMOVED " + "1.0 " + peer_access_point + " "+name+" "+i+" \r\n\r\n");
 							con_MC.send(sendData.getBytes());
+							
+							if (freedSpace > space)
+								return;
 						}
 					}
 				}

@@ -49,5 +49,10 @@ public class RemovedMessage  extends Message{
 		this.chunkNo = chunkNo;
 		this.setType("REMOVED");
 	}
+	
+	@Override
+	public String toString(){
+		return "REMOVED " + this.messageVersion + " " + this.senderId + " " + this.fileId + " " + this.chunkNo + " \r\n\r\n";
+	}
 
 }
