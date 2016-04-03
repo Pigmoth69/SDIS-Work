@@ -32,12 +32,13 @@ public class MakeBackup extends Thread{
 	
 	public void run() {
 		try {
-			for(int i = 1 ; i <= 5 ; i++){
-				System.out.println("Repostas Antes: "+putObs.getResponses());
-				putObs.setResponses(0);
-				System.out.println("Repostas Depois: "+putObs.getResponses());
+			for(int i = 0 ; i < 5 ; i++){
+				//System.out.println("Repostas Antes: "+putObs.getResponses());
+				//putObs.setResponses(0);
+				//System.out.println("Repostas Depois: "+putObs.getResponses());
 				c.send(sendData);
-				Thread.sleep(i*1000);
+				Thread.sleep((int)Math.pow(2, i)*1000);
+				System.out.println("Repostas Recebidas: "+putObs.getResponses() + " RepDegre necessário: " + repDegree);
 				if(putObs.getResponses() >= repDegree)
 					break;
 				

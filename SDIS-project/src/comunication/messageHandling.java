@@ -9,6 +9,7 @@ import java.util.Random;
 
 import sun.security.pkcs11.wrapper.CK_AES_CTR_PARAMS;
 import main.Chunk;
+import main.Client;
 import database.Info;
 import database.Serial;
 import MessageHandling.ChunkMessage;
@@ -100,7 +101,7 @@ public class messageHandling extends Thread{
 		Connection con = peer.getMC();
 		try {
 			Random generator = new Random();
-	        int number = generator.nextInt(400);
+	        int number = generator.nextInt(100);
 			Thread.sleep(number);
 			
 			con.send(sto.toString().getBytes());
@@ -197,7 +198,7 @@ public class messageHandling extends Thread{
 				System.out.println("DIR Restre created");  
 		}
 
-		MakeRestore mk = new MakeRestore(filename+"//teste.mp4",ch.getChunkNo(),ch.getBytes(),"MakeRestore");
+		MakeRestore mk = new MakeRestore(filename+"//teste.jpg",ch.getChunkNo(),ch.getBytes(),"MakeRestore");
 		mk.start();
 
 
@@ -241,7 +242,14 @@ public class messageHandling extends Thread{
 				File currentFile = new File("Chunks//" + rm.getFileId() + "//" + rm.getChunkNo() + ".chk");
 				if (currentFile.exists()){
 					System.out.println("iniciar o subprotocolo de backup aqui.");
-					//PutChunkMessage put = new PutChunkMessage(rm.getMessageVersion(), peer.getSenderId(),rm.getFileId(), rm.getChunkNo(), repDeg, );
+					/*
+					int replication = info.getFileRep().get(rm.getFileId());
+					MakeBackup mb = new MakeBackup("PUTCHUNK",rm.getFileId(),rm.getChunkNo(), replication, peer, peer.getMDB(), sendAll);
+					mb.start();
+					*/
+					
+					
+					//Client.startBackup(Integer.parseInt(peer.getSenderId()), "BACKUP", "" + rm.getChunkNo() + ".chk", info.getFileRep().get(rm.getFileId()));
 				}	
 			}
 		}

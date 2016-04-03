@@ -57,6 +57,7 @@ public class Client {
 		}
 		peer_access_point = Integer.parseInt(args[0]);
 		sub_protocol = args[1];
+		param[6] = args[0];
 		
 		switch(sub_protocol){
 			case "BACKUP":
@@ -134,7 +135,7 @@ public class Client {
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         String fileId = DatatypeConverter.printHexBinary(digest);
-        peer.getInfo().getFileNames().put(fileId, filename);
+        //peer.getInfo().getFileNames().put(fileId, filename);
         
         int numberBytes = (int) file.length();
         
@@ -147,7 +148,7 @@ public class Client {
 			peerID = param[6];
 			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			
-			if(numberBytes == 0){
+			/*if(numberBytes == 0){
 				tempData = new byte[0];
 			}else if(numberBytes >= 64000){
 				tempData = new byte[64000];
@@ -155,9 +156,9 @@ public class Client {
 			}else{
 				tempData = new byte[numberBytes];
 				numberBytes-=tempData.length;
-			}
+			}*/
 			
-			/*if(numberBytes == 0){
+			if(numberBytes == 0){
 				tempData = new byte[0];
 				numberBytes=-1;
 			}
@@ -172,7 +173,7 @@ public class Client {
 			else{
 				tempData = new byte[numberBytes];
 				numberBytes=-1;
-			}*/
+			}
 				
 			
 				
@@ -226,7 +227,7 @@ public class Client {
         int totalChunks = info.getChunksNumOfFileId(fileId);
         System.out.println(fileId);
         
-        for(int i = 1; i <= 1;i++){
+        for(int i = 1; i <= totalChunks;i++){
         	String sendData = new String("GETCHUNK "+"1.0 "+peer_access_point+" "+fileId+" "+i+" \r\n\r\n");
         	con_MDR.send(sendData.getBytes());
         	TimeUnit.MILLISECONDS.sleep(200);

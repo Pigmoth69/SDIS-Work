@@ -27,6 +27,7 @@ public class SaveDatabase extends Thread{
 		
 		//SÓ NÃO DÁ ERRO PORQUE COMENTEI A PARTE E.PRINTTREE DA CONCURRENT
 		public void run() {
+			
 				try {
 					FileOutputStream  fileOutput= new FileOutputStream(path);
 					FileLock isLocked;
@@ -35,12 +36,14 @@ public class SaveDatabase extends Thread{
 							fileOutput = new FileOutputStream(path);
 							isLocked = fileOutput.getChannel().tryLock();
 							
-							if(isLocked == null) //file it is locked!!
+							if(isLocked == null){ //file it is locked!!
 								continue;
+							}
 							else{
 								ObjectOutputStream out = new ObjectOutputStream(fileOutput);
 						        out.writeObject(info);
 						        out.close();
+						        System.out.println("database saved in " + path);
 								flag = false; // to exit cicle
 							}
 						    try {
@@ -70,7 +73,7 @@ public class SaveDatabase extends Thread{
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
 				}
-			System.out.println("Finished thread: "+threadName);
+			//System.out.println("Finished thread: "+threadName);
 		}
 	   
 		public void start ()
