@@ -30,18 +30,26 @@ public class Client {
 	
 	
 	private static final String CLRF = "\r\n";
-	static Peer peer;
-	static ChannelThreads MC;
-	static ChannelThreads MDB;
-	static ChannelThreads MDR;
-	static Connection con_MC;
-	static Connection con_MDB;
-	static Connection con_MDR;
+	Peer peer;
+	ChannelThreads MC;
+	ChannelThreads MDB;
+	ChannelThreads MDR;
+	Connection con_MC;
+	Connection con_MDB;
+	Connection con_MDR;
 	
 	static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "65"};
 	//static String param[] = {"224.0.0.19", "10001", "224.1.0.2", "10002", "224.1.0.3", "10003", "64"};
 	
-	public static void main(String[] args) throws NumberFormatException, IOException, NoSuchAlgorithmException, InterruptedException {
+	public Client(Peer peer, String args[]) throws NumberFormatException, NoSuchAlgorithmException, IOException, InterruptedException{
+		this.peer = peer;
+		this.MC = peer.getMCThread();
+		this.MDB = peer.getMDBThread();
+		this.MDR = peer.getMDRThread();
+		this.con_MC = peer.getMC();
+		this.con_MDB = peer.getMDB();
+		this.con_MDR = peer.getMDR();
+		
 		if(!checkArgsNum(args))//checks if there is a invalid number of arguments
 			return;
 		
@@ -63,7 +71,7 @@ public class Client {
 			case "BACKUP":
 				if(checkBackup(args[2],args[3]) && args.length == 4){
 					System.out.println("OK- starting peer..");
-					startPeer();
+					//startPeer();
 					startBackup(peer_access_point,sub_protocol,args[2],Integer.parseInt(args[3]));
 				}
 				else
@@ -72,7 +80,7 @@ public class Client {
 			case "RESTORE":
 				if(checkRestore(args[2]) && args.length == 3){
 					System.out.println("OK");
-					startPeer();
+					//startPeer();
 					startRestore(peer_access_point,sub_protocol,args[2]);
 				}	
 				else
@@ -81,7 +89,7 @@ public class Client {
 			case "DELETE":
 				if(checkDelete(args[2])&& args.length == 3){
 					System.out.println("OK");
-					startPeer();
+					//startPeer();
 					startDelete(peer_access_point,sub_protocol,args[2]);
 				}
 				else
@@ -90,7 +98,7 @@ public class Client {
 			case "RECLAIM":
 				if(checkReclaim() && args.length == 3){
 					System.out.println("OK22");
-					startPeer();
+					//startPeer();
 					Serial serial = peer.getSerial();
 					Info info = serial.getInfo();
 					System.out.println("Guardei: "+info.getChunksSaved().size());
@@ -105,7 +113,7 @@ public class Client {
 			
 	}
 	//END OF MAIN FUNCTION
-	
+	/*
 	private static void startPeer(){
 		peer = new Peer(param);
 		
@@ -120,8 +128,8 @@ public class Client {
 		con_MC = peer.getMC();
 		con_MDB = peer.getMDB();
 		con_MDR = peer.getMDR();
-	}
-	private static void startBackup(int peer_access_point, String sub_protocol, String filename, int replication) throws IOException, NoSuchAlgorithmException, InterruptedException {
+	}*/
+	public void startBackup(int peer_access_point, String sub_protocol, String filename, int replication) throws IOException, NoSuchAlgorithmException, InterruptedException {
 		File file = new File(filename);
 		double size = file.length()/64000;
 		size = Math.ceil(size);
@@ -197,7 +205,7 @@ public class Client {
 		System.out.println(chunkNO);
 	
 	}
-	public static void startDelete(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException{
+	public void startDelete(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException{
 		String hash = filename+peer_access_point;
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
@@ -209,14 +217,14 @@ public class Client {
 		
 	}
 	
-	public static void handleSubProtocol(int peer_access_point,String sub_protocol, String filename,int replication){
+	public void handleSubProtocol(int peer_access_point,String sub_protocol, String filename,int replication){
 		//TODO fazer o handler
 		System.out.println("peer_access_point: "+ peer_access_point);
 		System.out.println("sub_protocol: "+ sub_protocol);
 		System.out.println("replication: "+ replication);
 		
 	}
-	public static void startRestore(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException, InterruptedException{
+	public void startRestore(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException, InterruptedException{
 		String hash = filename+peer_access_point;
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed

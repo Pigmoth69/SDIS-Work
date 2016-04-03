@@ -3,15 +3,21 @@ package comunication;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.security.NoSuchAlgorithmException;
 
+import main.Client;
 import database.Info;
 import database.Serial;
 
-public class Peer {
+public class Peer implements PeerInterface{
 	private static Connection MC, MDB, MDR;
 	private static ChannelThreads MCThread, MDBThread, MDRThread;
 	private static String MCaddr, MDBaddr, MDRaddr;
-	private String senderId;
+	private static String senderId;
 	private Info info;
 	private Serial serial;
 	private MessageSubject subj;
@@ -125,5 +131,88 @@ public class Peer {
 
 	public void setSubj(MessageSubject subj) {
 		this.subj = subj;
+	}
+	
+    public static void main(String[] args) {
+
+        if(args.length != 7){
+            System.err.println("Usage: <mcIP> <mcPort> <mdbIP> <mdbPort> <mdrIP> <mdrPort> <Peer ID>");
+            System.exit(-1);
+        }
+        
+        int peerID = Integer.parseInt(args[6]);
+        senderId = args[6];
+        Peer peer = new Peer(args);
+        try {
+            PeerInterface stub = (PeerInterface) UnicastRemoteObject.exportObject(peer, peerID);
+            Registry registry = LocateRegistry.createRegistry(peerID);
+            registry.rebind("Peer",stub);
+        } catch (RemoteException e) {
+            System.err.println("Cannot export RMI Object");
+            System.exit(-1);
+        }
+
+        MCThread.start();
+		MDBThread.start();
+		MDRThread.start();
+        
+    }
+
+	@Override
+	public void putFile(String filename, int repDegree) throws RemoteException {
+		String args[] = {this.senderId, "RESTORE", filename, ""+repDegree};
+		Client c;
+		try {
+			c = new Client(this, args);
+			c.startBackup(Integer.parseInt(senderId),"BACKUP",filename,repDegree);
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void restoreFile(String filename) throws RemoteException {
+		String args[] = {this.senderId, "RESTORE", filename};
+		Client c;
+		try {
+			c = new Client(this, args);
+			c.startRestore(Integer.parseInt(senderId),"RESTORE",filename);
+		} catch (NumberFormatException | NoSuchAlgorithmException | IOException
+				| InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteFile(String filename) throws RemoteException {
+		String args[] = {this.senderId, "RESTORE", filename};
+		Client c;
+		try {
+			c = new Client(this, args);
+			c.startRestore(Integer.parseInt(senderId),"DELETE",filename);
+		} catch (NumberFormatException | NoSuchAlgorithmException | IOException
+				| InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void reclaimSpace(int space) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 }
