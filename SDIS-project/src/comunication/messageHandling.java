@@ -273,7 +273,7 @@ public class messageHandling extends Thread{
 					
 					FileInputStream f = new FileInputStream(currentFile);
 					byte[] buffer = new byte[(int) currentFile.length()];
-					f.read(buffer);
+					f.read(buffer); 
 					int replication = info.getFileRep().get(rm.getFileId());
 					String header = "PUTCHUNK "+ rm.getMessageVersion() + " " + peer.getSenderId() + " " + rm.getFileId() + " " + rm.getChunkNo() + " " + replication + " \r\n\r\n"; 
 					byte[] sendHeader = header.getBytes();
