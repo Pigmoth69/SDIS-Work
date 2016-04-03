@@ -18,6 +18,7 @@ public class Info implements Serializable{
 	ArrayList<Chunk> ChunksSaved;
 	Hashtable<String, Integer> FileRep;
 	
+	
 	public Hashtable<String, Integer> getFileRep() {
 		return FileRep;
 	}

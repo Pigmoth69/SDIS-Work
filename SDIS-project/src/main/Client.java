@@ -38,7 +38,7 @@ public class Client {
 	static Connection con_MDB;
 	static Connection con_MDR;
 	
-	static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "64"};
+	static String param[] = {"224.0.0.19", "8888", "224.0.0.3", "8032", "224.0.0.3", "8033", "65"};
 	//static String param[] = {"224.0.0.19", "10001", "224.1.0.2", "10002", "224.1.0.3", "10003", "64"};
 	
 	public static void main(String[] args) throws NumberFormatException, IOException, NoSuchAlgorithmException, InterruptedException {
@@ -148,6 +148,16 @@ public class Client {
 			
 			if(numberBytes == 0){
 				tempData = new byte[0];
+			}else if(numberBytes >= 64000){
+				tempData = new byte[64000];
+				numberBytes-=tempData.length;
+			}else{
+				tempData = new byte[numberBytes];
+				numberBytes-=tempData.length;
+			}
+			
+			/*if(numberBytes == 0){
+				tempData = new byte[0];
 				numberBytes=-1;
 			}
 			else if(numberBytes >= 64000){
@@ -161,7 +171,7 @@ public class Client {
 			else{
 				tempData = new byte[numberBytes];
 				numberBytes=-1;
-			}
+			}*/
 				
 			
 				
@@ -174,7 +184,8 @@ public class Client {
 			
 			MakeBackup mb = new MakeBackup("PUTCHUNK",fileId,chunkNO, replication, peer, con_MDB, sendAll);
 			mb.start();
-			//con_MDB.send(sendAll);
+			if(numberBytes==0)
+				numberBytes=-1;
 			
 			chunkNO++;
 			
@@ -203,7 +214,7 @@ public class Client {
 		System.out.println("replication: "+ replication);
 		
 	}
-	public static void startRestore(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException{
+	public static void startRestore(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException, InterruptedException{
 		String hash = filename+peer_access_point;
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
@@ -213,9 +224,11 @@ public class Client {
         Info info = serial.getInfo();
         int totalChunks = info.getChunksNumOfFileId(fileId);
         System.out.println(fileId);
+        
         for(int i = 1; i <= 1;i++){
-        	String sendData = new String("GETCHUNK "+"1.0 "+peer_access_point+" "+fileId+i+"  \r\n\r\n");
+        	String sendData = new String("GETCHUNK "+"1.0 "+peer_access_point+" "+fileId+" "+i+" \r\n\r\n");
         	con_MDR.send(sendData.getBytes());
+        	TimeUnit.MILLISECONDS.sleep(200);
         }
 	}
 	

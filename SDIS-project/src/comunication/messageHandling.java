@@ -168,15 +168,40 @@ public class messageHandling extends Thread{
 	
 	private void handCHUNK(){
 		ChunkMessage ch = (ChunkMessage)msg;
-		
+
 		MessageSubject subj = peer.getSubj();
 		subj.setNewType("CHUNK", new ChunkId(ch.getFileId(), ch.getChunkNo()));
-		
+
 		if (sentByMe(ch.getSenderId().getId(), ch.getType())){
 			return;
 		}
-		
+		System.out.println("Recebi um chunk!");
+
+		//isto esta hardcoded mas tem de ser mudado
+		String filename = new String("Restore");
+		File theDir = new File(filename);
+		// if the directory does not exist, create it
+		if (!theDir.exists()) {
+			System.out.println("creating directory: " + filename);
+			boolean result = false;
+			try{
+				theDir.mkdir();
+				result = true;
+			} 
+			catch(SecurityException se){
+				//handle it
+			}        
+			if(result)   
+				System.out.println("DIR Restre created");  
+		}
+
+		MakeRestore mk = new MakeRestore(filename+"//teste.mp4",ch.getChunkNo(),ch.getBytes(),"MakeRestore");
+		mk.start();
+
+
+
 		Info info = peer.getInfo();
+
 	}
 	
 	private void handDELETE(){
