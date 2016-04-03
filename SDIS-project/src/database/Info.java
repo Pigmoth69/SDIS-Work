@@ -66,6 +66,18 @@ public class Info implements Serializable{
 		return -1;
 	}
 	
+	public int getChunksNumOfFileId(String fileId){
+		Chunk ck;
+		int count = 0;
+		for (int i = 0; i < this.ChunksSaved.size(); i++){
+			ck = this.ChunksSaved.get(i);
+			if (ck.getFileId().equals(fileId)){
+				count++;
+			}
+		}
+		return count;
+	}
+	
 	public Info(int TotalMemory, int UsedMemory, ArrayList<Chunk> ChunksSaved, Hashtable<String, Integer> FileRep){
 		this.TotalMemory = TotalMemory;
 		this.UsedMemory = UsedMemory;

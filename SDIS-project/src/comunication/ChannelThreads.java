@@ -42,6 +42,7 @@ public class ChannelThreads extends Thread{
 
 				Message msg = Message.parseMessage(strB);
 				
+				
 				messageHandling msgRec = new messageHandling(peer, msg, msg.getType());
 				msgRec.start();
 				/*

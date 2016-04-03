@@ -23,6 +23,8 @@ import comunication.MakeBackup;
 import comunication.MessageSubject;
 import comunication.Peer;
 import comunication.putchunkObserver;
+import database.Info;
+import database.Serial;
 
 public class Client {
 	
@@ -69,6 +71,7 @@ public class Client {
 			case "RESTORE":
 				if(checkRestore(args[2]) && args.length == 3){
 					System.out.println("OK");
+					startPeer();
 					startRestore(peer_access_point,sub_protocol,args[2]);
 				}	
 				else
@@ -85,9 +88,14 @@ public class Client {
 				break;
 			case "RECLAIM":
 				if(checkReclaim() && args.length == 3){
-					System.out.println("OK");
+					System.out.println("OK22");
+					startPeer();
+					Serial serial = peer.getSerial();
+					Info info = serial.getInfo();
+					System.out.println("Guardei: "+info.getChunksSaved().size());
 					//handleSubProtocol(peer_access_point,sub_protocol,args[2]);
-					}
+					}else
+					System.out.println("Invalid <sub_protocol>");
 				break;
 			default:
 				System.out.println("Invalid <sub_protocol>");
@@ -174,9 +182,7 @@ public class Client {
 
 		System.out.println("Ending Sending chunks! \n \n");
 		System.out.println(chunkNO);
-		
-        
-		
+	
 	}
 	public static void startDelete(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException{
 		String hash = filename+peer_access_point;
@@ -197,14 +203,24 @@ public class Client {
 		System.out.println("replication: "+ replication);
 		
 	}
-	public static void startRestore(int peer_access_point,String sub_protocol, String filename){
-		System.out.println("peer_access_point: "+ peer_access_point);
-		System.out.println("sub_protocol: "+ sub_protocol);
-		System.out.println("filename: "+ filename);
+	public static void startRestore(int peer_access_point,String sub_protocol, String filename) throws NoSuchAlgorithmException, IOException{
+		String hash = filename+peer_access_point;
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+        byte[] digest = md.digest();
+        String fileId = DatatypeConverter.printHexBinary(digest);
+        Serial serial = peer.getSerial();
+        Info info = serial.getInfo();
+        int totalChunks = info.getChunksNumOfFileId(fileId);
+        System.out.println(fileId);
+        for(int i = 1; i <= 1;i++){
+        	String sendData = new String("GETCHUNK "+"1.0 "+peer_access_point+" "+fileId+i+"  \r\n\r\n");
+        	con_MDR.send(sendData.getBytes());
+        }
 	}
 	
 	private static boolean checkReclaim() {
-		return false;
+		return true;
 		// TODO Auto-generated method stub
 	}
 

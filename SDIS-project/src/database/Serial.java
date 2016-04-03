@@ -23,18 +23,8 @@ public class Serial{
 	}
 
 	public synchronized void Save(String path){
-		try
-	      {
-	         FileOutputStream fileOut = new FileOutputStream(path);
-	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(this.info);
-	         out.close();
-	         fileOut.close();
-	         System.out.println("Serialized data is saved in " + path);
-	      }catch(IOException i)
-	      {
-	          i.printStackTrace();
-	      }
+		SaveDatabase db = new SaveDatabase(path,this.info,"SaveDatabase");
+		db.start();
 	}
 	
 	public synchronized boolean Load(String path){
