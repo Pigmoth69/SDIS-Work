@@ -33,6 +33,7 @@ public class Connection {
 		
 		DatagramPacket msgPacket = new DatagramPacket(msg,msg.length, mAddr, mcast_port);
 		System.out.println("Sent: " + new String(msg).substring(0, 20) + "...");
+		System.out.println("tamanho do envio:" + msg.length);
 		sendSocket.send(msgPacket); 
         
 	}
@@ -44,6 +45,7 @@ public class Connection {
 		recSocket.receive(msgPacket);
         String msg = new String(msgPacket.getData(), 0,msgPacket.getLength() );
         System.out.println("Received: " + msg.substring(0, 20) + "...");
+        System.out.println("tamanho recebido:" + msgPacket.getLength());
         
         byte[] res = new byte[msgPacket.getLength()];
         System.arraycopy(msgPacket.getData(), 0, res, 0, msgPacket.getLength());

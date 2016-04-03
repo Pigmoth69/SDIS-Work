@@ -33,6 +33,10 @@ public class Message {
 	}
 
 	public static Message parseMessage(byte[] data){
+		/*int CRLF_size = 0;
+		for(int i = 0 ; i < data.length; i++){
+			
+		}*/
 		String dataString = new String(data);
 		String[] dataArgs = dataString.split(CRLF+CRLF); //separates the message into header [0] and body [1] OMG... FDS faltava a merda de um " " para qe funcionasse -.-
 		//System.out.println("Args");
