@@ -40,7 +40,7 @@ public class MakeRestore extends Thread{
 								continue;
 							else{
 								if(data.length!=0){
-								fileOutput.seek((long)((chunkNO-1)*data.length));
+								fileOutput.seek((long)((chunkNO-1)*64000));
 								fileOutput.write(data);
 								}
 								flag = false; // to exit cicle
