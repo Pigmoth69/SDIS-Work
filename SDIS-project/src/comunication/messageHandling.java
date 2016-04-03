@@ -161,8 +161,13 @@ public class messageHandling extends Thread{
 		        int number = generator.nextInt(400);
 				Thread.sleep(number);
 				
-				if (getObs.getResponses() == 0)
-					con.send(ch.toString().getBytes());
+				if (getObs.getResponses() == 0){
+					byte[] copy = new byte[ch.getBytes().length+ch.toString().length()];
+					System.arraycopy(ch.getBytes(), 0, copy, 0, ch.getBytes().length);
+					System.arraycopy(ch.getBytes(), 0, copy, ch.getBytes().length, ch.getBytes().length);
+					con.send(copy);
+				}
+					
 				
 				System.out.println(new String(ch.getBytes()).substring(0, 20));
 			} catch (IOException | InterruptedException e) {
