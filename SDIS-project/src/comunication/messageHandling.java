@@ -162,9 +162,10 @@ public class messageHandling extends Thread{
 				Thread.sleep(number);
 				
 				if (getObs.getResponses() == 0){
-					byte[] copy = new byte[ch.getBytes().length+ch.toString().length()];
-					System.arraycopy(ch.getBytes(), 0, copy, 0, ch.getBytes().length);
-					System.arraycopy(ch.getBytes(), 0, copy, ch.getBytes().length, ch.getBytes().length);
+					byte[] copy = new byte[ch.getBytes().length+ch.toString().getBytes().length];
+					
+					System.arraycopy(ch.toString().getBytes(), 0, copy, 0, ch.toString().getBytes().length);
+					System.arraycopy(ch.getBytes(), 0, copy, ch.toString().getBytes().length, ch.getBytes().length);
 					con.send(copy);
 				}
 					
