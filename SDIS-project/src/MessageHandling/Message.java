@@ -42,25 +42,9 @@ public class Message {
 		String[] header = inputHeaders[0].split("\\s+"); //separates all header parts
 		
 		byte[] body = null;
-		int startBody=-1;
-
 		if(dataArgs.length > 1){
-			int CRLF_size = 0;
-			for(int i = 0 ; i < data.length; i++){
-				String s = ""+data[i];
-				if(CRLF_size==2){
-					startBody=i;
-					break;
-				}
-				if(s.equals(CRLF)){
-					CRLF_size++;
-				}
-			}
-			body = Arrays.copyOfRange(data,startBody,data.length);
-
-			
-			/*int headerTam = dataArgs[0].length();
-			body = Arrays.copyOfRange(data, headerTam+4, data.length);*/
+			int headerTam = dataArgs[0].length();
+			body = Arrays.copyOfRange(data, headerTam+4, data.length);
 			//byte[] example = Arrays.copyOfRange(body, 0, 50);
 			//System.out.println(new String(body));
 		}
