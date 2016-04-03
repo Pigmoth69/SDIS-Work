@@ -262,13 +262,21 @@ public class messageHandling extends Thread{
 		}
 		
 		Info info = this.peer.getInfo();
+		
+		
+		
+		
+		
 		int ckId = info.getChunkIndex(rm.getFileId(), rm.getChunkNo());
 		if (ckId != -1){
 			Chunk ck = info.getChunksSaved().get(ckId);
 			ck.removePeer(rm.getSenderId().getId());
 			int repDeg = ck.getPeers().size();
+			
 			Hashtable<String, Integer> fileRep = info.getFileRep();
 			int minRep = fileRep.get(ck.getFileId());
+			
+			System.out.println("repDeg = " + repDeg + " min = " + minRep);
 			
 			if (repDeg < minRep){
 				File ChunkDir = new File("Chunks");
@@ -302,6 +310,8 @@ public class messageHandling extends Thread{
 				}	
 			}
 		}
+		else
+			System.out.println("ckId = -1");
 	}
 	
 	private boolean sentByMe(String id, String type){
