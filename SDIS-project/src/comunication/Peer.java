@@ -209,7 +209,15 @@ public class Peer implements PeerInterface{
 
 	@Override
 	public void reclaimSpace(int space) throws RemoteException {
-		// TODO Auto-generated method stub
+		String args[] = {this.senderId, "RECLAIM", "" + space};
+		Client c;
+		try {
+			c = new Client(this, args);
+		} catch (NumberFormatException | NoSuchAlgorithmException | IOException
+				| InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

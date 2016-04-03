@@ -96,12 +96,10 @@ public class Client {
 					System.out.println("Invalid <sub_protocol>");
 				break;
 			case "RECLAIM":
-				if(checkReclaim() && args.length == 3){
+				if(args.length == 3){
 					System.out.println("OK22");
 					//startPeer();
-					Serial serial = peer.getSerial();
-					Info info = serial.getInfo();
-					System.out.println("Guardei: "+info.getChunksSaved().size());
+					startReclaim(peer_access_point, sub_protocol, args[2]);
 					//handleSubProtocol(peer_access_point,sub_protocol,args[2]);
 					}else
 					System.out.println("Invalid <sub_protocol>");
@@ -242,9 +240,31 @@ public class Client {
         }
 	}
 	
-	private static boolean checkReclaim() {
-		return true;
-		// TODO Auto-generated method stub
+	public void startReclaim(int peer_access_point, String sub_protocol, String space1) throws IOException {
+		int freedSpace = 0;
+		int space = Integer.parseInt(space1);
+		
+		while(freedSpace < space){
+			File chunksDir = new File("Chunks");
+			if (chunksDir.exists() && chunksDir.isDirectory()){
+				File[] contents = chunksDir.listFiles();
+				for (int i = 0; i < contents.length; i++){
+					int rep = peer.getInfo().getFileRep().get(contents[i].getName());
+					if (rep != 1){
+						File[] chunks = contents[i].listFiles();
+						for(File f : chunks){
+							freedSpace+=f.length();
+							String name = f.getName();
+							f.delete();
+							
+							String sendData = new String("REMOVED " + "1.0 " + peer_access_point + " "+name+" "+i+" \r\n\r\n");
+							con_MC.send(sendData.getBytes());
+						}
+					}
+				}
+			}
+		}
+		
 	}
 
 	private static boolean checkDelete(String filename) {
