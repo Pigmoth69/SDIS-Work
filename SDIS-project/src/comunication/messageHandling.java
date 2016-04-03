@@ -1,6 +1,8 @@
 package comunication;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -55,7 +57,15 @@ public class messageHandling extends Thread{
 				handDELETE();
 				break;
 			case "REMOVED":
+			try {
 				handREMOVED();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				break;
 			default: break; 
 		}
@@ -208,8 +218,8 @@ public class messageHandling extends Thread{
 			if(result)   
 				System.out.println("DIR Restre created");  
 		}
-
-		MakeRestore mk = new MakeRestore(filename+"//teste.jpg",ch.getChunkNo(),ch.getBytes(),"MakeRestore");
+		String outFIle = peer.getInfo().getFileNames().get(ch.getFileId());
+		MakeRestore mk = new MakeRestore(filename + "/" + outFIle,ch.getChunkNo(),ch.getBytes(),"MakeRestore");
 		mk.start();
 
 
@@ -227,7 +237,7 @@ public class messageHandling extends Thread{
 		dl.doIt();
 	}
 	
-	private void handREMOVED(){
+	private void handREMOVED() throws IOException{
 		RemovedMessage rm = (RemovedMessage)msg;
 		
 		if (sentByMe(rm.getSenderId().getId(), rm.getType())){
@@ -253,14 +263,25 @@ public class messageHandling extends Thread{
 				File currentFile = new File("Chunks//" + rm.getFileId() + "//" + rm.getChunkNo() + ".chk");
 				if (currentFile.exists()){
 					System.out.println("iniciar o subprotocolo de backup aqui.");
-					/*
+					
+					FileInputStream f = new FileInputStream(currentFile);
+					byte[] buffer = new byte[(int) currentFile.length()];
+					f.read(buffer);
 					int replication = info.getFileRep().get(rm.getFileId());
-					MakeBackup mb = new MakeBackup("PUTCHUNK",rm.getFileId(),rm.getChunkNo(), replication, peer, peer.getMDB(), sendAll);
+					String header = "PUTCHUNK "+ rm.getMessageVersion() + " " + peer.getSenderId() + " " + rm.getFileId() + " " + rm.getChunkNo() + " " + replication + " \r\n\r\n"; 
+					byte[] sendHeader = header.getBytes();
+					
+					byte[] copy = new byte[sendHeader.length+buffer.length];
+					
+					System.arraycopy(sendHeader, 0, copy, 0, sendHeader.length);
+					System.arraycopy(buffer, 0, copy, sendHeader.length, buffer.length);
+					
+					
+					MakeBackup mb = new MakeBackup("PUTCHUNK",rm.getFileId(),rm.getChunkNo(), replication, peer, peer.getMDB(), copy);
 					mb.start();
-					*/
 					
 					
-					//Client.startBackup(Integer.parseInt(peer.getSenderId()), "BACKUP", "" + rm.getChunkNo() + ".chk", info.getFileRep().get(rm.getFileId()));
+					
 				}	
 			}
 		}
