@@ -17,8 +17,17 @@ public class Info implements Serializable{
 	int UsedMemory;
 	ArrayList<Chunk> ChunksSaved;
 	Hashtable<String, Integer> FileRep;
+	Hashtable<String, String> FileNames;
 	
 	
+	public Hashtable<String, String> getFileNames() {
+		return FileNames;
+	}
+
+	public void setFileNames(Hashtable<String, String> fileNames) {
+		FileNames = fileNames;
+	}
+
 	public Hashtable<String, Integer> getFileRep() {
 		return FileRep;
 	}
@@ -79,11 +88,12 @@ public class Info implements Serializable{
 		return count;
 	}
 	
-	public Info(int TotalMemory, int UsedMemory, ArrayList<Chunk> ChunksSaved, Hashtable<String, Integer> FileRep){
+	public Info(int TotalMemory, int UsedMemory, ArrayList<Chunk> ChunksSaved, Hashtable<String, Integer> FileRep, Hashtable<String, String> FileNames){
 		this.TotalMemory = TotalMemory;
 		this.UsedMemory = UsedMemory;
 		this.ChunksSaved = ChunksSaved;
 		this.FileRep = FileRep;
+		this.FileNames = FileNames;
 	}
 	
 	public Info(){
@@ -91,6 +101,7 @@ public class Info implements Serializable{
 		this.UsedMemory = 0;
 		this.ChunksSaved = new ArrayList<Chunk>();
 		this.FileRep = new Hashtable<String, Integer>();
+		this.FileNames = new Hashtable<String, String>();
 
 		Collections.synchronizedList(this.ChunksSaved);
 	}

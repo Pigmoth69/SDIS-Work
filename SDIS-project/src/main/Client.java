@@ -134,6 +134,7 @@ public class Client {
         md.update(hash.getBytes("UTF-8")); // Change this to "UTF-16" if needed
         byte[] digest = md.digest();
         String fileId = DatatypeConverter.printHexBinary(digest);
+        peer.getInfo().getFileNames().put(fileId, filename);
         
         int numberBytes = (int) file.length();
         

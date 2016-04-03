@@ -17,7 +17,7 @@ public class testDB {
 			ChunksSaved.add(new Chunk("ABCDGFJA222", 2, peers));
 			ChunksSaved.add(new Chunk("ABCDGFJA333", 3, peers));
 			
-			Info info = new Info(5000, 50, ChunksSaved, null);
+			Info info = new Info(5000, 50, ChunksSaved, null, null);
 			Serial s = new Serial(info);
 			s.Save("database/info.db");
 		}else if(args[0].equals("1")){
@@ -27,7 +27,7 @@ public class testDB {
 			ChunksSaved.add(new Chunk("ABCDGFJA555", 5, peers));
 			ChunksSaved.add(new Chunk("ABCDGFJA666", 6, peers));
 			
-			Info info = new Info(5000, 50, ChunksSaved, null);
+			Info info = new Info(5000, 50, ChunksSaved, null, null);
 			Serial s = new Serial(info);
 			s.Save("database/info.db");
 		}
