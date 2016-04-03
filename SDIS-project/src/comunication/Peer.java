@@ -201,7 +201,7 @@ public class Peer implements PeerInterface{
 		Client c;
 		try {
 			c = new Client(this, args);
-			c.startRestore(Integer.parseInt(senderId),"DELETE",filename);
+			c.startDelete(Integer.parseInt(senderId),"DELETE",filename);
 		} catch (NumberFormatException | NoSuchAlgorithmException | IOException
 				| InterruptedException e) {
 			// TODO Auto-generated catch block
