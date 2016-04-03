@@ -42,8 +42,8 @@ public class MakeBackup extends Thread{
 					e.printStackTrace();
 				} 
 				Thread.sleep((int)Math.pow(2, i)*1000);
-				System.out.println("Repostas Recebidas: "+(putObs.getResponses()-1) + " RepDegre necessario: " + repDegree);
-				if(putObs.getResponses() - 1 >= repDegree)
+				System.out.println("Repostas Recebidas: "+(putObs.getResponses()) + " RepDegre necessario: " + repDegree);
+				if(putObs.getResponses() >= repDegree)
 					break;
 				
 			}
