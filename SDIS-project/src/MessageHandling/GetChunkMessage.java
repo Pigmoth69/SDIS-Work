@@ -44,13 +44,14 @@ public class GetChunkMessage  extends Message{
 			else{
 				try {
 					System.out.println("Getting chunk ");
-					InputStream is = new FileInputStream("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
-				    int size = is.available();
-				    byte bytes[] = new byte[65000];
-		
-				    for(int i=0; i< size; i++){
-				       bytes[i] = (byte)is.read();
-				    }
+					File f = new File("Chunks//" + new String(this.fileId) + "//" + chunkNo + ".chk");
+					if(!f.exists()){
+						System.out.println("FILE DOES NOT EXISTS!!");
+						return null;
+					}
+					FileInputStream is = new FileInputStream(f);
+				    byte bytes[] = new byte[(int)f.length()];
+				    is.read(bytes);
 				    is.close();
 				    
 				    return new ChunkMessage(messageVersion, senderId, fileId, chunkNo, bytes);
