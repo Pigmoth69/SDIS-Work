@@ -146,7 +146,7 @@ public class Client {
 			
 			String peerID;
 			peerID = param[6];
-			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n ");
+			String send = new String("PUTCHUNK 1.0 "+peerID+" "+fileId+" "+chunkNO+" "+replication+" \r\n\r\n");
 			
 			if(numberBytes == 0){
 				tempData = new byte[0];
