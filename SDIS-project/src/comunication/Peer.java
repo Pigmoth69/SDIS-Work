@@ -160,10 +160,10 @@ public class Peer implements PeerInterface{
 
 	@Override
 	public void putFile(String filename, int repDegree) throws RemoteException {
-		String args[] = {this.senderId, "RESTORE", filename, ""+repDegree};
-		Client c;
+		String args[] = {this.senderId, "BACKUP", filename, ""+repDegree};
+		
 		try {
-			c = new Client(this, args);
+			Client c = new Client(this, args);
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -183,9 +183,9 @@ public class Peer implements PeerInterface{
 	@Override
 	public void restoreFile(String filename) throws RemoteException {
 		String args[] = {this.senderId, "RESTORE", filename};
-		Client c;
+		
 		try {
-			c = new Client(this, args);
+			Client c = new Client(this, args);
 		} catch (NumberFormatException | NoSuchAlgorithmException | IOException
 				| InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -196,9 +196,9 @@ public class Peer implements PeerInterface{
 	@Override
 	public void deleteFile(String filename) throws RemoteException {
 		String args[] = {this.senderId, "DELETE", filename};
-		Client c;
+		
 		try {
-			c = new Client(this, args);
+			Client c = new Client(this, args);
 		} catch (NumberFormatException | NoSuchAlgorithmException | IOException
 				| InterruptedException e) {
 			// TODO Auto-generated catch block
